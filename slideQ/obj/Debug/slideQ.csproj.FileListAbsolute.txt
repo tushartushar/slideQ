@@ -1,0 +1,11 @@
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\obj\Debug\PowerPointAddInTest_CountSlides.Properties.Resources.resources
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\obj\Debug\slideQ.csproj.GenerateResource.Cache
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\bin\Debug\PowerPointAddInTest_CountSlides.dll
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\bin\Debug\PowerPointAddInTest_CountSlides.pdb
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\bin\Debug\PowerPointAddInTest_CountSlides.dll.manifest
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\bin\Debug\PowerPointAddInTest_CountSlides.vsto
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\obj\Debug\slideQ.slideQRibbon.resources
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\obj\Debug\PowerPointAddInTest_CountSlides.dll
+C:\Dev\slideQ\PowerPointAddInTest_CountSlides\obj\Debug\PowerPointAddInTest_CountSlides.pdb
