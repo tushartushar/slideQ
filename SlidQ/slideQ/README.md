@@ -1,0 +1,2 @@
+# slideQ
+Presentation Smells Detector

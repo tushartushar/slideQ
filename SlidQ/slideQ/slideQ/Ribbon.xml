@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI onLoad="Ribbon_Load" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+    <ribbon>
+        <tabs>
+            <tab idMso="TabAddIns">
+              <group id="group1" label="slideQ" >
+                <button id="AddAnimationButton"
+                 label="Analyze"
+                 size="large"
+                 getImage="GetImage"
+                 supertip="Get The Count Of Slides"
+                 enabled="true"
+                 onAction="AddAnimationButtonClick"/>
+              </group>
+            </tab>
+        </tabs>
+    </ribbon>
+</customUI>
