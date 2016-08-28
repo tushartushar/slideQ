@@ -1,0 +1,16 @@
+F:\SlidQ\slideQ\SlideQTests\bin\Debug\SlideQTests.dll
+F:\SlidQ\slideQ\SlideQTests\bin\Debug\SlideQTests.pdb
+F:\SlidQ\slideQ\SlideQTests\obj\Debug\SlideQTests.csprojResolveAssemblyReference.cache
+F:\SlidQ\slideQ\SlideQTests\obj\Debug\SlideQTests.dll
+F:\SlidQ\slideQ\SlideQTests\obj\Debug\SlideQTests.pdb
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\obj\Debug\SlideQTests.csprojResolveAssemblyReference.cache
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\obj\Debug\Interop.LCC11.dll
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\obj\Debug\SlideQTests.csproj.ResolveComReference.cache
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\bin\Debug\SlideQTests.dll
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\bin\Debug\SlideQTests.pdb
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\bin\Debug\PowerPointAddInTest_CountSlides.dll
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\bin\Debug\PowerPointAddInTest_CountSlides.pdb
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\obj\Debug\SlideQTests.dll
+F:\ROhit\files\SlidQ\slideQ\SlideQTests\obj\Debug\SlideQTests.pdb
