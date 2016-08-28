@@ -156,10 +156,16 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Constants.cs" />
+    <Compile Include="Model\PresentationSmell.cs" />
+    <Compile Include="Model\SlideDataModel.cs" />
+    <Compile Include="SmellDetectors\ISmellDetector.cs" />
+    <Compile Include="Threshold\Constants.cs" />
+    <Compile Include="Model\MasterDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SmellDetectors\SmellDetector.cs" />
+    <Compile Include="SmellDetectors\TexthellSmellDetector.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -168,11 +174,12 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="slideQRibbon.resx">
       <DependentUpon>slideQRibbon.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="slideQKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -181,7 +188,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="slideQRibbon.cs" />
+    <Compile Include="slideQRibbon.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="slideQRibbon.Designer.cs">
       <DependentUpon>slideQRibbon.cs</DependentUpon>
     </Compile>
@@ -205,7 +214,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\Sq.bmp" />
+    <Content Include="Images\icon.png" />
+    <None Include="Resources\icon.bmp" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -215,7 +225,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>PowerPointAddInTest_CountSlides_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>slideQKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>D66DAE4BE66668A2F6EC6980687465F7233FDC18</ManifestCertificateThumbprint>

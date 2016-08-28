@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +8,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using Office = Microsoft.Office.Core;
+using slideQ.Properties;
+using slideQ.SmellDetectors;
+using slideQ.Model;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
 
@@ -83,28 +87,25 @@ namespace slideQ
         {
             try
             {
-                MessageBox.Show("Count of Slides: " + GetSlideCount(), Constants.AppName);
+                MessageBox.Show("Count of Slides: " + Globals.slideQAddIn.Application.ActivePresentation.Slides.Count, Constants.AppName);
+                
+                SmellDetector detector = new SmellDetector();
+                List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(Globals.slideQAddIn.Application.ActivePresentation.Slides);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-               
+               //Log the exception
             }
         }
 
-        private int GetSlideCount()
+   
+
+        #endregion
+        #region GetIcon
+        public Bitmap GetImage(Office.IRibbonControl control)
         {
-            int NumberOfSlide = 0;
-            try
-            {
-                 NumberOfSlide = Globals.slideQAddIn.Application.ActivePresentation.Slides.Count;
-            }
-            catch
-            {
-                NumberOfSlide = 0;
-            }
-            return NumberOfSlide;
+            return new Bitmap(PowerPointAddInTest_CountSlides.Properties.Resources.icon);
         }
-
         #endregion
     }
 }

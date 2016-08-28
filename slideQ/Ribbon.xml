@@ -7,7 +7,7 @@
                 <button id="AddAnimationButton"
                  label="Analyze"
                  size="large"
-                 image="./Images/Sq.bmp"
+                 getImage="GetImage"
                  supertip="Get The Count Of Slides"
                  enabled="true"
                  onAction="AddAnimationButtonClick"/>
