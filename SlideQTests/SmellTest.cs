@@ -7,6 +7,7 @@ using Microsoft.Office.Core;
 using Microsoft.Office.Interop;
 using System.IO;
 using Microsoft.Office.Interop.PowerPoint;
+using System.Collections.Generic;
 
 namespace SlideQTests
 {
@@ -18,17 +19,27 @@ namespace SlideQTests
         [SetUp]
         public void GetPPTObject()
         {
-            string path = @"../../../SlideQTests/TestFile/SlideQTestCount.pptx";
+            string solution_dir = Path.GetDirectoryName(Path.GetDirectoryName(TestContext.CurrentContext.WorkDirectory));
+            string path = @solution_dir+@"\TestFile\SlideQTestCount.pptx";
             string absolute = Path.GetFullPath(path);
             Application ppApp = new Application();
             ppApp.Visible = MsoTriState.msoTrue;
             Presentations oPresSet = ppApp.Presentations;
-            PPTObject = oPresSet.Open(absolute, MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoTrue);
+            PPTObject = oPresSet.Open(@path, MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoTrue);
         }
         [Test]
         public void TextHellTest()
-        {                      
+        {
+            List<SlideDataModel> SlideDataModelList = new List<SlideDataModel>();
+            foreach (Slide slide in PPTObject.Slides)
+            {
+                SlideDataModel slideModel = new SlideDataModel(slide);
+                slideModel.build();
+                SlideDataModelList.Add(slideModel);
+            }
 
+            Assert.AreEqual(5, SlideDataModelList[0].TotalTextCount);
+            Assert.AreEqual(0, SlideDataModelList[1].TotalTextCount);
         }
     }
 }
