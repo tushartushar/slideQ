@@ -31,7 +31,7 @@ namespace slideQ.Model
                 {
                     if (shape.TextFrame.HasText == MsoTriState.msoTrue)
                     {
-                        Microsoft.Office.Interop.PowerPoint.TextRange Textrange = shape.TextFrame.TextRange;
+                        TextRange Textrange = shape.TextFrame.TextRange;
                         count += Textrange.Text.Count();
                     }
                 }

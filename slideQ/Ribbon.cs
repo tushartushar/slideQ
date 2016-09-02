@@ -89,7 +89,7 @@ namespace slideQ
         {
             try
             {
-                MessageBox.Show("Count of Slides: " + Globals.slideQAddIn.Application.ActivePresentation.Slides.Count, Constants.AppName);
+                //MessageBox.Show("Count of Slides: " + Globals.slideQAddIn.Application.ActivePresentation.Slides.Count, Constants.AppName);
                 
                 SmellDetector detector = new SmellDetector();
                 List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(Globals.slideQAddIn.Application.ActivePresentation.Slides);
@@ -107,7 +107,14 @@ namespace slideQ
 
         public static void Gotoslide(int index)
         {
-            Globals.slideQAddIn.Application.ActivePresentation.Slides[index].Select();
+            try
+            {
+                Globals.slideQAddIn.Application.ActivePresentation.Slides[index].Select();
+            }
+            catch(COMException)
+            {
+                Globals.slideQAddIn.Application.ActivePresentation.Slides[index - Globals.slideQAddIn.Application.ActivePresentation.Slides[1].SlideNumber+1].Select();
+            }
           
         }
    

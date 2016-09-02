@@ -17,7 +17,7 @@ namespace slideQ
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             WinControl = new PaneBackWinControl();
-            TaskPaneObj = this.CustomTaskPanes.Add(WinControl, "My Task Pane");
+            TaskPaneObj = this.CustomTaskPanes.Add(WinControl, "Presentation smells - slideQ");
             TaskPaneObj.Visible = false;
             TaskPaneObj.VisibleChanged += TaskPane_VisibleChanged; 
         }
