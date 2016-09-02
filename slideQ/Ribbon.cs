@@ -11,6 +11,8 @@ using Office = Microsoft.Office.Core;
 using slideQ.Properties;
 using slideQ.SmellDetectors;
 using slideQ.Model;
+using PowerPointAddInTest_CountSlides;
+using Microsoft.Office.Core;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
 
@@ -91,6 +93,10 @@ namespace slideQ
                 
                 SmellDetector detector = new SmellDetector();
                 List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(Globals.slideQAddIn.Application.ActivePresentation.Slides);
+                SmellDisplayControl.PPTSmellList.ItemsSource = presentationSmells;
+                SmellDisplayControl.PPTSmellList.UpdateLayout();
+                Globals.slideQAddIn.TaskPane.Visible = true;
+
             }
             catch (Exception)
             {
@@ -98,6 +104,12 @@ namespace slideQ
             }
         }
 
+
+        public static void Gotoslide(int index)
+        {
+            Globals.slideQAddIn.Application.ActivePresentation.Slides[index].Select();
+          
+        }
    
 
         #endregion

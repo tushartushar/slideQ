@@ -16,7 +16,7 @@ namespace slideQ.Model
             this.slide = slide;
         }
 
-        internal void build()
+        public void build()
         {
             countText();
             SlideNo = slide.SlideNumber;
@@ -31,7 +31,8 @@ namespace slideQ.Model
                 {
                     if (shape.TextFrame.HasText == MsoTriState.msoTrue)
                     {
-                        count += shape.TextFrame.TextRange.Count;
+                        Microsoft.Office.Interop.PowerPoint.TextRange Textrange = shape.TextFrame.TextRange;
+                        count += Textrange.Text.Count();
                     }
                 }
             }

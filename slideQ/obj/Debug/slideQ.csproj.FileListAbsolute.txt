@@ -56,3 +56,22 @@ C:\Dev\slideQ\slideQ\obj\Debug\slideQ.slideQRibbon.resources
 C:\Dev\slideQ\slideQ\obj\Debug\slideQ.csproj.GenerateResource.Cache
 C:\Dev\slideQ\slideQ\obj\Debug\PowerPointAddInTest_CountSlides.dll
 C:\Dev\slideQ\slideQ\obj\Debug\PowerPointAddInTest_CountSlides.pdb
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\bin\Debug\PowerPointAddInTest_CountSlides.dll
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\bin\Debug\PowerPointAddInTest_CountSlides.pdb
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\bin\Debug\PowerPointAddInTest_CountSlides.dll.manifest
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\bin\Debug\PowerPointAddInTest_CountSlides.vsto
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\bin\Debug\nunit.framework.dll
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\bin\Debug\nunit.framework.xml
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\SmellDisplayControl.baml
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\SmellDisplayControl.g.cs
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\PowerPointAddInTest_CountSlides_MarkupCompile.cache
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\PowerPointAddInTest_CountSlides.g.resources
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\PowerPointAddInTest_CountSlides.PaneBackWinControl.resources
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\PowerPointAddInTest_CountSlides.Properties.Resources.resources
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\slideQ.slideQRibbon.resources
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\slideQ.csproj.GenerateResource.Cache
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\PowerPointAddInTest_CountSlides.dll
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\PowerPointAddInTest_CountSlides.pdb
+F:\ROhit\files\SlideQ _ 2\slideQ-master\slideQ\obj\Debug\slideQ.csprojResolveAssemblyReference.cache
