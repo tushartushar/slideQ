@@ -6,11 +6,11 @@ using System.Security;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PowerPointAddInTest_CountSlides")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("slideQ")]
+[assembly: AssemblyDescription("Presentation smells detector")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PowerPointAddInTest_CountSlides")]
+[assembly: AssemblyProduct("slideQ")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

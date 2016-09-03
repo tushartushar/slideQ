@@ -13,6 +13,7 @@ using slideQ.SmellDetectors;
 using slideQ.Model;
 using PowerPointAddInTest_CountSlides;
 using Microsoft.Office.Core;
+using slideQ.View;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
 

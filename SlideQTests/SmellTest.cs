@@ -1,13 +1,12 @@
 ﻿using System;
 using NUnit.Framework;
-using slideQ.Model;
-using slideQ.SmellDetectors;
-using slideQ;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop;
 using System.IO;
 using Microsoft.Office.Interop.PowerPoint;
 using System.Collections.Generic;
+using slideQ.Model;
+using slideQ.SmellDetectors;
 
 namespace SlideQTests
 {
@@ -28,7 +27,7 @@ namespace SlideQTests
             PPTObject = oPresSet.Open(@path, MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoTrue);
         }
         [Test]
-        public void TextHellTest()
+        public void TextCountTest()
         {
             List<SlideDataModel> SlideDataModelList = new List<SlideDataModel>();
             foreach (Slide slide in PPTObject.Slides)
@@ -37,9 +36,23 @@ namespace SlideQTests
                 slideModel.build();
                 SlideDataModelList.Add(slideModel);
             }
-
+            
             Assert.AreEqual(5, SlideDataModelList[0].TotalTextCount);
             Assert.AreEqual(0, SlideDataModelList[1].TotalTextCount);
+        }
+        [Test]
+        public void TextHellSmellTest()
+        {
+            SmellDetector detector = new SmellDetector();
+            List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(PPTObject.Slides);
+
+            bool found = false;
+            foreach(PresentationSmell smell in presentationSmells)
+            {
+                if (smell.SmellName.Equals(slideQ.Constants.TEXTHELL) && smell.SlideNo == 3)
+                    found = true;
+            }
+            Assert.AreEqual(true, found);
         }
     }
 }

@@ -8,7 +8,7 @@
                  label="Analyze"
                  size="large"
                  getImage="GetImage"
-                 supertip="Get The Count Of Slides"
+                 supertip="Analyze presentation for Presentation Smells"
                  enabled="true"
                  onAction="AddAnimationButtonClick"/>
               </group>

@@ -7,7 +7,7 @@ using slideQ.Model;
 using Microsoft.Office.Interop.PowerPoint;
 namespace slideQ.SmellDetectors
 {
-    class SmellDetector
+    public class SmellDetector
     {
         private List<PresentationSmell> smellsList;
         public List<PresentationSmell> detectPresentationSmells (Slides slides)

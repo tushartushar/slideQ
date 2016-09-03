@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PowerPointAddInTest_CountSlides
+namespace slideQ.View
 {
     public partial class PaneBackWinControl : UserControl
     {
