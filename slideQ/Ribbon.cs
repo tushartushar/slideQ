@@ -11,7 +11,6 @@ using Office = Microsoft.Office.Core;
 using slideQ.Properties;
 using slideQ.SmellDetectors;
 using slideQ.Model;
-using PowerPointAddInTest_CountSlides;
 using Microsoft.Office.Core;
 using slideQ.View;
 
@@ -49,7 +48,7 @@ namespace slideQ
 
         public string GetCustomUI(string ribbonID)
         {
-            return GetResourceText("PowerPointAddInTest_CountSlides.Ribbon.xml");
+            return GetResourceText("slideQ.Ribbon.xml");
         }
 
         #endregion
@@ -124,7 +123,7 @@ namespace slideQ
         #region GetIcon
         public Bitmap GetImage(Office.IRibbonControl control)
         {
-            return new Bitmap(PowerPointAddInTest_CountSlides.Properties.Resources.icon);
+            return new Bitmap(slideQ.Properties.Resources.icon);
         }
         #endregion
     }
