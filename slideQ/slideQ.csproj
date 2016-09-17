@@ -152,6 +152,9 @@
     <Reference Include="nunit.engine.api">
       <HintPath>..\packages\NUnit3TestAdapter.3.4.1\lib\nunit.engine.api.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="NUnit3.TestAdapter">
       <HintPath>..\packages\NUnit3TestAdapter.3.4.1\lib\NUnit3.TestAdapter.dll</HintPath>
     </Reference>
@@ -208,6 +211,7 @@
   <ItemGroup>
     <Compile Include="Model\PresentationSmell.cs" />
     <Compile Include="Model\SlideDataModel.cs" />
+    <Compile Include="SmellDetectors\BYOBSmellDetector.cs" />
     <Compile Include="View\PaneBackWinControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -270,6 +274,7 @@
       <DependentUpon>slideQAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
+    <None Include="slideQ_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Ribbon.xml">
@@ -295,10 +300,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>slideQKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>slideQ_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>D66DAE4BE66668A2F6EC6980687465F7233FDC18</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>CF982DF66E6D33230DCC2A0842BD186928DCAAF0</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
