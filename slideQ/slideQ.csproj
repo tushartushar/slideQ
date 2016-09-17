@@ -274,7 +274,7 @@
       <DependentUpon>slideQAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
-    <None Include="slideQ_TemporaryKey.pfx" />
+    <None Include="slideQKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Ribbon.xml">
@@ -283,7 +283,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\icon.png" />
-    <None Include="Resources\slideQIcon.ico" />
     <None Include="Resources\icon.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -300,17 +299,16 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>slideQ_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>slideQKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>CF982DF66E6D33230DCC2A0842BD186928DCAAF0</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>2A744AD18F6B5E400F05E9F0A3F31276C0BAB890</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>slideQKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
