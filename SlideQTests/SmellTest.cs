@@ -41,13 +41,33 @@ namespace SlideQTests
             Assert.AreEqual(0, SlideDataModelList[1].TotalTextCount);
         }
         [Test]
+        public void BYOBSmellTest()
+        {
+            SmellDetector detector = new SmellDetector();
+            List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(PPTObject.Slides);
+            bool[] found = new bool[2];
+             found[0] = false;
+             found[1] = false;
+            foreach(PresentationSmell smell in presentationSmells)
+            {
+                if (smell.SmellName.Equals(slideQ.Constants.BYOB) && smell.SlideNo == 2)
+                    found[0] = true;
+                if (smell.SmellName.Equals(slideQ.Constants.BYOB) && smell.SlideNo == 4)
+                    found[1] = true;
+
+            }
+            Assert.AreEqual(true, found[0]);
+            Assert.AreEqual(true, found[1]);
+        }
+
+        [Test]
         public void TextHellSmellTest()
         {
             SmellDetector detector = new SmellDetector();
             List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(PPTObject.Slides);
 
             bool found = false;
-            foreach(PresentationSmell smell in presentationSmells)
+            foreach (PresentationSmell smell in presentationSmells)
             {
                 if (smell.SmellName.Equals(slideQ.Constants.TEXTHELL) && smell.SlideNo == 3)
                     found = true;
