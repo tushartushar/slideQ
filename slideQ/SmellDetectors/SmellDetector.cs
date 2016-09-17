@@ -17,12 +17,18 @@ namespace slideQ.SmellDetectors
             dataModel.build();
 
             detectTextHellSmell(dataModel);
+            detectByobSmell(dataModel);
             return smellsList;
         }
 
         private void detectTextHellSmell(MasterDataModel dataModel)
         {
             TexthellSmellDetector detector = new TexthellSmellDetector(dataModel);
+            smellsList.AddRange(detector.detect());
+        }
+        private void detectByobSmell(MasterDataModel dataModel)
+        {
+            BYOBSmellDetector detector = new BYOBSmellDetector(dataModel);
             smellsList.AddRange(detector.detect());
         }
     }
