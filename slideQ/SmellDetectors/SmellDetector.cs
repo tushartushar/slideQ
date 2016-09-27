@@ -18,6 +18,7 @@ namespace slideQ.SmellDetectors
 
             detectTextHellSmell(dataModel);
             detectByobSmell(dataModel);
+            ColormaniaSmell(dataModel);
             return smellsList;
         }
 
@@ -29,6 +30,11 @@ namespace slideQ.SmellDetectors
         private void detectByobSmell(MasterDataModel dataModel)
         {
             BYOBSmellDetector detector = new BYOBSmellDetector(dataModel);
+            smellsList.AddRange(detector.detect());
+        }
+        private void ColormaniaSmell(MasterDataModel dataModel)
+        {
+            ColormaniaSmellDetector detector = new ColormaniaSmellDetector(dataModel);
             smellsList.AddRange(detector.detect());
         }
     }
