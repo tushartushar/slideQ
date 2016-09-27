@@ -212,6 +212,7 @@
     <Compile Include="Model\PresentationSmell.cs" />
     <Compile Include="Model\SlideDataModel.cs" />
     <Compile Include="SmellDetectors\BYOBSmellDetector.cs" />
+    <Compile Include="SmellDetectors\ColormaniaSmellDetector.cs" />
     <Compile Include="View\PaneBackWinControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
