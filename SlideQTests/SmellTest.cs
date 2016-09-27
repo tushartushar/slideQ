@@ -45,19 +45,17 @@ namespace SlideQTests
         {
             SmellDetector detector = new SmellDetector();
             List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(PPTObject.Slides);
-            bool[] found = new bool[2];
-             found[0] = false;
-             found[1] = false;
+            bool found = false;
+            
             foreach(PresentationSmell smell in presentationSmells)
             {
-                if (smell.SmellName.Equals(slideQ.Constants.BYOB) && smell.SlideNo == 2)
-                    found[0] = true;
+               
                 if (smell.SmellName.Equals(slideQ.Constants.BYOB) && smell.SlideNo == 4)
-                    found[1] = true;
+                    found = true;
 
             }
-            Assert.AreEqual(true, found[0]);
-            Assert.AreEqual(true, found[1]);
+            Assert.AreEqual(true, found);
+            
         }
 
         [Test]
@@ -70,6 +68,21 @@ namespace SlideQTests
             foreach (PresentationSmell smell in presentationSmells)
             {
                 if (smell.SmellName.Equals(slideQ.Constants.TEXTHELL) && smell.SlideNo == 3)
+                    found = true;
+            }
+            Assert.AreEqual(true, found);
+        }
+
+        [Test]
+        public void ColormaniaSmellTest()
+        {
+            SmellDetector detector = new SmellDetector();
+            List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(PPTObject.Slides);
+
+            bool found = false;
+            foreach (PresentationSmell smell in presentationSmells)
+            {
+                if (smell.SmellName.Equals(slideQ.Constants.COLORMANIA) && smell.SlideNo == 4)
                     found = true;
             }
             Assert.AreEqual(true, found);
