@@ -14,8 +14,10 @@ namespace slideQ
         //Smell names
         public static string TEXTHELL = "Text Hell";
         public static string BYOB = "BYOB";
+        public static string COLORMANIA = "Color-Mania";
         public static int BYOB_THRESHOLD_HEIGHT = 50;
         public static int BYOB_THRESHOLD_WIDTH = 50;
         public static int BYOB_THRESHOLD_TEXT_SIZE = 16;
+        public static int COLOR_MANIA_THRESHOLD = 2;
     }
 }
