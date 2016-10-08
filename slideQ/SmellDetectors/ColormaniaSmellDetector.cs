@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-﻿using slideQ.Model;
+
+using slideQ.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,45 +39,3 @@ namespace slideQ.SmellDetectors
 
     }
 }
-=======
-﻿using slideQ.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace slideQ.SmellDetectors
-{
-    class ColormaniaSmellDetector :ISmellDetector
-    {
-         private MasterDataModel dataModel;
-
-         public ColormaniaSmellDetector(MasterDataModel dataModel)
-        {
-            this.dataModel = dataModel;
-        }
-
-         public List<PresentationSmell> detect()
-         {
-             List<PresentationSmell> smellList = new List<PresentationSmell>();
-
-             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
-             {
-                 int ColorCount = slide.TextFontSize.GroupBy(x=>x.Color).Select(x=>x.FirstOrDefault()).Count();
-                 if (ColorCount > Constants.COLOR_MANIA_THRESHOLD)
-                 {
-                     PresentationSmell smell = new PresentationSmell();
-                     smell.SmellName = Constants.COLORMANIA;
-                     string Cause = "The tool detected the smell since the slide contains ( " + ColorCount + " ) " + "Multiple Color";
-                     smell.Cause = Cause;
-                     smell.SlideNo = slide.SlideNo;
-                     smellList.Add(smell);
-                 }
-             }
-             return smellList;
-         }
-
-    }
-}
->>>>>>> 5ed4e8b588f5ffddd1cc435393015a67c7ab8731
