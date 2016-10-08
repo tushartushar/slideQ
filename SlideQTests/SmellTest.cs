@@ -87,5 +87,20 @@ namespace SlideQTests
             }
             Assert.AreEqual(true, found);
         }
+
+        [Test]
+        public void ItsLasVegasSmell()
+        {
+            SmellDetector detector = new SmellDetector();
+            List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(PPTObject.Slides);
+
+            bool found = false;
+            foreach (PresentationSmell smell in presentationSmells)
+            {
+                if (smell.SmellName.Equals(slideQ.Constants.ItsLasVegas) && smell.SlideNo == 2)
+                    found = true;
+            }
+            Assert.AreEqual(true, found);
+        }
     }
 }

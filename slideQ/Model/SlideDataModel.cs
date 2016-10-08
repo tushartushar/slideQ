@@ -19,6 +19,7 @@ namespace slideQ.Model
         public void build()
         {
             countText();
+            NoOfAniMationINTheSlide= NoOfEnimationInSlide();
             SlideNo = slide.SlideNumber;
         }
 
@@ -68,6 +69,12 @@ namespace slideQ.Model
 
         private int CheckForHavingText(int count, Microsoft.Office.Interop.PowerPoint.Shape InheritShape)
         {
+
+            string name = InheritShape.Name;
+            if(InheritShape.AnimationSettings.Animate==MsoTriState.msoTrue)
+            {
+
+            }
             if (InheritShape.TextFrame.HasText == MsoTriState.msoTrue)
             {
 
@@ -104,11 +111,28 @@ namespace slideQ.Model
 
         }
 
+
+        private int NoOfEnimationInSlide()
+        {
+            int numOfAnimations = 0;
+            foreach (Effect e in slide.TimeLine.MainSequence)
+            {
+                if (e.Timing.TriggerType == MsoAnimTriggerType.msoAnimTriggerOnPageClick)
+                {
+                    numOfAnimations++;
+                }
+            }
+            return numOfAnimations;
+        }
+ 
+
         public int TotalTextCount { get; set; }
 
         public int SlideNo { get; set; }
 
         public List<CharAttribute> TextFontSize = new List<CharAttribute>();
+
+        public int NoOfAniMationINTheSlide { get; set; }
 
     }
 
