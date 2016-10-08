@@ -25,7 +25,7 @@ namespace slideQ
 
         
         public static int TEXTHELL_THRESHOLD = 200; //characters
-        public static int BYOB_THRESHOLD_TEXT_SIZE = 16;
+       
         public static int COLOR_MANIA_THRESHOLD = 4;
 
     }
