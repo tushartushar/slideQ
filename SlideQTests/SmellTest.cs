@@ -102,5 +102,21 @@ namespace SlideQTests
             }
             Assert.AreEqual(true, found);
         }
+
+        [Test]
+        public void SecretaryofHiPUSmell()
+        {
+            SmellDetector detector = new SmellDetector();
+            List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(PPTObject.Slides);
+
+            bool found = false;
+            foreach (PresentationSmell smell in presentationSmells)
+            {
+                if (smell.SmellName.Equals(slideQ.Constants.SecretaryofHiPU) && smell.SlideNo == 3)
+                    found = true;
+            }
+            Assert.AreEqual(true, found);
+        }
+
     }
 }

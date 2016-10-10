@@ -20,6 +20,7 @@ namespace slideQ.SmellDetectors
             detectByobSmell(dataModel);
             ColormaniaSmell(dataModel);
             ItsLasVegasSmell(dataModel);
+            SecretaryofHiPUSmell(dataModel);
             return smellsList;
         }
 
@@ -41,6 +42,12 @@ namespace slideQ.SmellDetectors
         private void ItsLasVegasSmell(MasterDataModel dataModel)
         {
             ItsLasVegasSmellDetector detector = new ItsLasVegasSmellDetector(dataModel);
+            smellsList.AddRange(detector.detect());
+        }
+
+        private void SecretaryofHiPUSmell(MasterDataModel dataModel)
+        {
+            SecretaryofHiPUSmellDetector detector = new SecretaryofHiPUSmellDetector(dataModel);
             smellsList.AddRange(detector.detect());
         }
     }

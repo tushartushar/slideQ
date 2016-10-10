@@ -80,8 +80,32 @@ namespace slideQ.Model
 
                 count = GetCharCount(count, InheritShape);
                 GetTextAttribute(InheritShape);
+                if (ExtractSlideTitlefromShape(InheritShape))
+                {
+                    TitleHavingUnderLine = IsHavingUnderLine(InheritShape);
+                }
             }
             return count;
+        }
+        private bool ExtractSlideTitlefromShape(Microsoft.Office.Interop.PowerPoint.Shape shape)
+        {
+            bool isTitleShape = shape.Name.ToLower().Contains("title");
+            return isTitleShape;
+        }
+
+        private bool IsHavingUnderLine(Microsoft.Office.Interop.PowerPoint.Shape shape)
+        {
+            bool IsHavingUnderLineCounter = false;
+            Microsoft.Office.Interop.PowerPoint.TextRange Textrange = shape.TextFrame.TextRange;
+            for (int index = 0; index < Textrange.Text.Count(); index++)
+            {
+                Microsoft.Office.Interop.PowerPoint.TextRange text = Textrange.Find(Textrange.Text[index].ToString(), index);
+                if(text.Font.Underline==MsoTriState.msoTrue)
+                {
+                    return true;
+                }
+            }
+            return IsHavingUnderLineCounter;
         }
 
         private int GetCharCount(int count, Microsoft.Office.Interop.PowerPoint.Shape shape)
@@ -133,6 +157,8 @@ namespace slideQ.Model
         public List<CharAttribute> TextFontSize = new List<CharAttribute>();
 
         public int NoOfAniMationINTheSlide { get; set; }
+
+        public bool TitleHavingUnderLine { get; set; }
 
     }
 
