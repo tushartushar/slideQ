@@ -118,5 +118,51 @@ namespace SlideQTests
             Assert.AreEqual(true, found);
         }
 
+
+        [Test]
+        public void ChaoticStylistSmell()
+        {
+            SmellDetector detector = new SmellDetector();
+            List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(PPTObject.Slides);
+
+            bool found = false;
+            foreach (PresentationSmell smell in presentationSmells)
+            {
+                if (smell.SmellName.Equals(slideQ.Constants.ChaoticStylist) && smell.SlideNo == 1)
+                    found = true;
+            }
+            Assert.AreEqual(true, found);
+        }
+
+
+        [Test]
+        public void SubSub__BulletSmell()
+        {
+            SmellDetector detector = new SmellDetector();
+            List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(PPTObject.Slides);
+
+            bool found = false;
+            foreach (PresentationSmell smell in presentationSmells)
+            {
+                if (smell.SmellName.Equals(slideQ.Constants.SubSub__Bullet) && smell.SlideNo == 5)
+                    found = true;
+            }
+            Assert.AreEqual(true, found);
+        }
+
+        [Test]
+        public void StungbySpellBeeSmell()
+        {
+            SmellDetector detector = new SmellDetector();
+            List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(PPTObject.Slides);
+
+            bool found = false;
+            foreach (PresentationSmell smell in presentationSmells)
+            {
+                if (smell.SmellName.Equals(slideQ.Constants.Stungbyspellbee) && smell.SlideNo == 6)
+                    found = true;
+            }
+            Assert.AreEqual(true, found);
+        }
     }
 }

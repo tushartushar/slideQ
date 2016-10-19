@@ -124,6 +124,7 @@ namespace slideQ
         public Bitmap GetImage(Office.IRibbonControl control)
         {
             return new Bitmap(slideQ.Properties.Resources.icon);
+          
         }
         #endregion
     }
