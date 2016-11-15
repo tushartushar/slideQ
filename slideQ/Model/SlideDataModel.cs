@@ -14,13 +14,16 @@ namespace slideQ.Model
     {
         private Slide slide;
 
+        private static string LogFilePath = @"F:\Rohit\SlideQ\Log\"+DateTime.Now.ToString("ddMMyyyyTHHmmss");
         public SlideDataModel(Slide slide)
         {
             this.slide = slide;
         }
 
+
         public void build()
         {
+            Log("analyze slide no " + slide.SlideNumber);
             TotalSpellingMistake = 0;
             IndentLevel = 0;
             countText();
@@ -30,47 +33,165 @@ namespace slideQ.Model
             SlideNo = slide.SlideNumber;
         }
 
+        void CreatetestlogFile()
+        {
+            if (!File.Exists(LogFilePath))
+            {
+                StreamWriter writer = new StreamWriter(LogFilePath);
+                writer.Close();
+            }
+        }
+        public static void Log(string str)
+        {
+            try
+            {
+
+                StreamWriter Tex = File.AppendText(SlideDataModel.LogFilePath);
+                Tex.WriteLine(DateTime.Now.ToString() + " " + str);
+                Tex.Close();
+
+            }
+            catch
+            {
+
+            }
+        }
         private void countText()
         {
             
             int count = 0;
+            int i = 0;
             foreach (Microsoft.Office.Interop.PowerPoint.Shape shape in slide.Shapes)
             {
-                
-                if (shape.Type == MsoShapeType.msoGroup)
+                int gt = 0;
+                try
                 {
-                    if (shape.GroupItems.Count > 0)
-                    {
-                        count = CheckEveryShapeINGroup(count, shape);
-                    }
+                  gt=  shape.GroupItems.Count ;
+                  Log("analyze slide no " + slide.SlideNumber + " found group i=" + i + " total group items "+ gt);
                 }
+                catch 
+                {
+                    Log("analyze slide no " + slide.SlideNumber + " exception in count text on group count i = "+i );
+                }
+                if (shape.Type == MsoShapeType.msoGroup && gt!=0  )
+                {
+                    Log("analyze slide no " + slide.SlideNumber+ " found group i="+i);
+                        count = CheckEveryShapeINGroup(count, shape);
+                    
+                }
+
+                else if (shape.Type == MsoShapeType.msoSmartArt || shape.Type == MsoShapeType.msoPlaceholder || gt > 0)
+                {
+
+                    try
+                    {
+                        Log("analyze slide no " + slide.SlideNumber + " found msoSmartArt i=" + i);
+                        SmartArtNodes nodes = shape.SmartArt.AllNodes;
+                        foreach (SmartArtNode node in nodes)
+                        {
+                            try
+                            {
+                                if (node.TextFrame2.HasText == MsoTriState.msoTrue)
+                                {
+                                    GetNodeCharAttribute(node.TextFrame2);
+                                    count = count + node.TextFrame2.TextRange.Text.Count();
+                                    TotalSpellingMistake = TotalSpellingMistake + spellcheckCore(node.TextFrame2.TextRange.Text);
+                                }
+                            }
+                            catch(Exception ex)
+                            {
+                                Log("analyze slide no " + slide.SlideNumber + " found msoSmartArt => HasText cond. i=" + i + " Exception" + ex.Message);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log("analyze slide no " + slide.SlideNumber + " found msoSmartArt => SmartArt.AllNodes cond. i=" + i + " Exception" + ex.Message);
+                 
+                    }
+                   // count = CheckEveryShapeINGroup(count, shape);
+
+                }
+           
                 if (shape.HasTextFrame == MsoTriState.msoTrue)
                 {
                     count = CheckForHavingText(count, shape);
+                    Log("analyze slide no " + slide.SlideNumber + " found group i =" + i + " count "+ count);
                 }
 
 
-
+                i++;
             }
             TotalTextCount = count;
         }
 
         private int CheckEveryShapeINGroup(int count, Microsoft.Office.Interop.PowerPoint.Shape shape)
         {
+            int i = 0;
             foreach (Microsoft.Office.Interop.PowerPoint.Shape InheritShape in shape.GroupItems)
             {
-                if (InheritShape.Type == MsoShapeType.msoGroup)
+                int gt = 0;
+                try
+                {
+                    gt = InheritShape.GroupItems.Count;
+                    Log("\t analyze slide no " + slide.SlideNumber + " found group inner shape  i=" + i + " total group items " + gt);
+                }
+                catch
+                {
+                    Log("\t analyze slide no " + slide.SlideNumber + " exception in inner shape count text on group count i = " + i);
+                }
+
+                if (InheritShape.Type == MsoShapeType.msoGroup && gt != 0)
                 {
                     if (InheritShape.GroupItems.Count > 0)
                     {
+                        Log("\t analyze slide no " + slide.SlideNumber + " found group i=" + i);
+            
                         count = CheckEveryShapeINGroup(count, InheritShape);
                     }
                 }
+
+                else if (InheritShape.Type == MsoShapeType.msoSmartArt || InheritShape.Type == MsoShapeType.msoPlaceholder || gt > 0)
+                {
+
+                    try
+                    {
+                        Log("analyze slide no " + slide.SlideNumber + " found msoSmartArt i=" + i);
+                        SmartArtNodes nodes = InheritShape.SmartArt.AllNodes;
+                        foreach (SmartArtNode node in nodes)
+                        {
+                            try
+                            {
+                                if (node.TextFrame2.HasText == MsoTriState.msoTrue)
+                                {
+                                    GetNodeCharAttribute(node.TextFrame2);
+                                    count = count + node.TextFrame2.TextRange.Text.Count();
+                                    TotalSpellingMistake = TotalSpellingMistake + spellcheckCore(node.TextFrame2.TextRange.Text);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Log("analyze slide no " + slide.SlideNumber + " found msoSmartArt => HasText cond. i=" + i + " Exception" + ex.Message);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log("analyze slide no " + slide.SlideNumber + " found msoSmartArt => SmartArt.AllNodes cond. i=" + i + " Exception" + ex.Message);
+
+                    }
+                    // count = CheckEveryShapeINGroup(count, shape);
+
+                }
+
+
+
                 if (InheritShape.HasTextFrame == MsoTriState.msoTrue)
                 {
                     count = CheckForHavingText(count, InheritShape);
+                    Log("analyze slide no " + slide.SlideNumber + " found group i =" + i + " count " + count);
                 }
-
+                i++;
             }
             return count;
         }
@@ -78,29 +199,42 @@ namespace slideQ.Model
         private int CheckForHavingText(int count, Microsoft.Office.Interop.PowerPoint.Shape InheritShape)
         {
 
-            string name = InheritShape.Name;
-            if(InheritShape.AnimationSettings.Animate==MsoTriState.msoTrue)
-            {
-
-            }
             if (InheritShape.TextFrame.HasText == MsoTriState.msoTrue)
             {
 
                 count = GetCharCount(count, InheritShape);
+                Log("\tanalyze slide no " + slide.SlideNumber + " CheckForHavingText get count " + count);
                 TotalSpellingMistake = TotalSpellingMistake + GetspellingmistakeCount(InheritShape);
+                Log("\tanalyze slide no " + slide.SlideNumber + " CheckForHavingText get TotalSpellingMistake  " + TotalSpellingMistake);
                 GetTextAttribute(InheritShape);
+                Log("\tanalyze slide no " + slide.SlideNumber + " CheckForHavingText get TextAttribute  " );
+             
                 CheckIndentLevelForBullet(InheritShape);
+                Log("\tanalyze slide no " + slide.SlideNumber + " CheckForHavingText get CheckIndentLevelForBullet  ");
+                Log("\tanalyze slide no " + slide.SlideNumber + " CheckForHavingText get check if condition  for title");
+             
                 if (ExtractSlideTitlefromShape(InheritShape))
                 {
+                    Log("\tanalyze slide no " + slide.SlideNumber + " CheckForHavingText title found  ");
+             
                     TitleHavingUnderLine = IsHavingUnderLine(InheritShape);
+                    Log("\tanalyze slide no " + slide.SlideNumber + " CheckForHavingText get check if condition  for title under line ");
+             
                 }
             }
             return count;
         }
         private bool ExtractSlideTitlefromShape(Microsoft.Office.Interop.PowerPoint.Shape shape)
         {
-            bool isTitleShape = shape.Name.ToLower().Contains("title");
-            return isTitleShape;
+            try
+            {
+                bool isTitleShape = shape.Name.ToLower().Contains("title");
+                return isTitleShape;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private bool IsHavingUnderLine(Microsoft.Office.Interop.PowerPoint.Shape shape)
@@ -120,47 +254,63 @@ namespace slideQ.Model
 
         private int GetCharCount(int count, Microsoft.Office.Interop.PowerPoint.Shape shape)
         {
+            Log("\tanalyze slide no " + slide.SlideNumber + " GetCharCount get char count   ");
+             
             Microsoft.Office.Interop.PowerPoint.TextRange Textrange = shape.TextFrame.TextRange;
             count += Textrange.Text.Trim().Count();
+            Log("\tanalyze slide no " + slide.SlideNumber + " GetCharCount  char count  = "+ count );
+           
             return count;
         }
 
         private int GetspellingmistakeCount( Microsoft.Office.Interop.PowerPoint.Shape shape)
         {
+            Log("\tanalyze slide no " + slide.SlideNumber + " GetspellingmistakeCount  ");
+          
             int count = 0;
             try
             {
                 Microsoft.Office.Interop.PowerPoint.TextRange Textrange = shape.TextFrame.TextRange;
                 string line = Textrange.Text.Trim();
-                char[] spliter =  { ' ', '\r','\n',')','(',',',';','.'};
-                string[] words = line.Split(spliter);
-                //add-in  http://www.nuget.org/packages/NHunspell/
+                count = spellcheckCore( line);
+            }
+            catch
+            {
+                Log("\tanalyze slide no " + slide.SlideNumber + " GetspellingmistakeCount exception occur ");
+          
+            
+            }
+            return count;
+        }
+
+        private int spellcheckCore( string line)
+        {int count=0;
+            char[] spliter = { ' ', '\r', '\n', ')', '(', ',', ';', '.' };
+            string[] words = line.Split(spliter);
+            //add-in  http://www.nuget.org/packages/NHunspell/
 
 
-                string afffilepath;
-                string dicfilepath;
-                WritefilesintempFolder(out afffilepath, out dicfilepath);
+            string afffilepath;
+            string dicfilepath;
+            WritefilesintempFolder(out afffilepath, out dicfilepath);
 
-                using (Hunspell hunspell = new Hunspell(afffilepath, dicfilepath))
+            using (Hunspell hunspell = new Hunspell(afffilepath, dicfilepath))
+            {
+                foreach (string word in words)
                 {
-                    foreach (string word in words)
+                    try
                     {
-                        try
+                        if (!hunspell.Spell(word))
                         {
-                            if (!hunspell.Spell(word))
-                            {
-                                count++;
-                            }
+                            count++;
                         }
-                        catch
-                        {
-
-                        }
+                    }
+                    catch
+                    {
+                        Log("\tanalyze slide no " + slide.SlideNumber + " GetspellingmistakeCount exception occur in hunspell.Spell(word)condition");
                     }
                 }
             }
-            catch
-            { }
             return count;
         }
 
@@ -186,41 +336,102 @@ namespace slideQ.Model
         {
             Microsoft.Office.Interop.PowerPoint.TextRange Textrange = shape.TextFrame.TextRange;
 
-
-            for (int index = 0; index < Textrange.Text.Count(); index++)
-            {
-                Microsoft.Office.Interop.PowerPoint.TextRange text = Textrange.Find(Textrange.Text[index].ToString(), index);
-                float sz = text.Font.Size;
-                CharAttribute attr = new CharAttribute();
-                attr.Size = sz;
-                attr.Ch = Textrange.Text[index];
-                attr.Color = text.Font.Color.RGB;
-                attr.FontNameofChar = text.Font.Name;
-                TextFontSize.Add(attr);
-            }
+            Log("\tanalyze slide no " + slide.SlideNumber + " GetTextAttribute  total char  " + Textrange.Text.Count());
+            GetCharAttribute(Textrange);
 
 
         }
+
+
+        private void GetNodeCharAttribute(Microsoft.Office.Core.TextFrame2 TextFrame)
+        {
+            Microsoft.Office.Core.TextRange2 Textrange = TextFrame.TextRange;
+
+            for (int index = 0; index < Textrange.Text.Count(); index++)
+            {
+                try
+                {
+                    Microsoft.Office.Core.TextRange2 text = Textrange.Find(Textrange.Text[index].ToString(), index);
+                    float sz = text.Font.Size;
+                    CharAttribute attr = new CharAttribute();
+                    attr.Size = sz;
+                    attr.Ch = Textrange.Text[index];
+                    attr.Color = text.Font.Fill.ForeColor.RGB;
+                    attr.FontNameofChar = text.Font.Name;
+                    TextFontSize.Add(attr);
+                }
+                catch (Exception ex)
+                {
+                    Log("\tanalyze slide no " + slide.SlideNumber + " GetCharAttribute exception occur : " + ex.Message);
+
+                }
+            }
+        }
+
+
+        private void GetCharAttribute(Microsoft.Office.Interop.PowerPoint.TextRange Textrange)
+        {
+
+            for (int index = 0; index < Textrange.Text.Count(); index++)
+            {
+                try
+                {
+                    Microsoft.Office.Interop.PowerPoint.TextRange text = Textrange.Find(Textrange.Text[index].ToString(), index);
+                    float sz = text.Font.Size;
+                    CharAttribute attr = new CharAttribute();
+                    attr.Size = sz;
+                    attr.Ch = Textrange.Text[index];
+                    attr.Color = text.Font.Color.RGB;
+                    attr.FontNameofChar = text.Font.Name;
+                    TextFontSize.Add(attr);
+                }
+                catch (Exception ex)
+                {
+                    Log("\tanalyze slide no " + slide.SlideNumber + " GetCharAttribute exception occur : " + ex.Message);
+
+                }
+            }
+        }
         public void GetSlideLayout()
         {
-            Theme = slide.ThemeColorScheme;
-            ThemeObjCount = Theme.Count;
-            Layout = slide.Layout;
-            ColorSchem = slide.ColorScheme;
-            ColorSchemCount = ColorSchem.Count;
-            SlideShapeRange = slide.Background;
+            Log("\tanalyze slide no " + slide.SlideNumber + " GetSlideLayout ");
+     
+            try
+            {
+                Theme = slide.ThemeColorScheme;
+                ThemeObjCount = Theme.Count;
+                Layout = slide.Layout;
+                ColorSchem = slide.ColorScheme;
+                ColorSchemCount = ColorSchem.Count;
+                SlideShapeRange = slide.Background;
+            }
+            catch (Exception ex)
+            {
+                Log("\tanalyze slide no " + slide.SlideNumber + " GetSlideLayout exception occur : " + ex.Message);
+          
+            }
            
         }
 
         private int NoOfEnimationInSlide()
         {
             int numOfAnimations = 0;
-            foreach (Effect e in slide.TimeLine.MainSequence)
+            Log("\tanalyze slide no " + slide.SlideNumber + " NoOfEnimationInSlide");
+          
+            try
             {
-                if (e.Timing.TriggerType == MsoAnimTriggerType.msoAnimTriggerOnPageClick)
+                foreach (Effect e in slide.TimeLine.MainSequence)
                 {
-                    numOfAnimations++;
+                    if (e.Timing.TriggerType == MsoAnimTriggerType.msoAnimTriggerOnPageClick)
+                    {
+                        numOfAnimations++;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Log("\tanalyze slide no " + slide.SlideNumber + " NoOfEnimationInSlide exception occur : " + ex.Message);
+         
             }
             return numOfAnimations;
         }

@@ -103,11 +103,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BYOBSmellTests.cs" />
     <Compile Include="SmellTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmellTestOnEmptySlide.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestFile\EmptySlide.pptx" />
     <None Include="TestFile\SlideQTestCount.pptx" />
   </ItemGroup>
   <ItemGroup>
