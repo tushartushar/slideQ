@@ -146,6 +146,9 @@
     <Reference Include="Mono.Cecil.Rocks">
       <HintPath>..\packages\NUnit3TestAdapter.3.4.1\lib\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
+    <Reference Include="NHunspell">
+      <HintPath>..\packages\NHunspell.1.2.5554.16953\lib\net\NHunspell.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.engine">
       <HintPath>..\packages\NUnit3TestAdapter.3.4.1\lib\nunit.engine.dll</HintPath>
     </Reference>
@@ -212,9 +215,12 @@
     <Compile Include="Model\PresentationSmell.cs" />
     <Compile Include="Model\SlideDataModel.cs" />
     <Compile Include="SmellDetectors\BYOBSmellDetector.cs" />
+    <Compile Include="SmellDetectors\ChaoticStylistSmellDetectors.cs" />
     <Compile Include="SmellDetectors\ColormaniaSmellDetector.cs" />
     <Compile Include="SmellDetectors\ItsLasVegasSmellDetector.cs" />
     <Compile Include="SmellDetectors\SecretaryofHiPUSmellDetector.cs" />
+    <Compile Include="SmellDetectors\StungbySpellBeeSmellDetector.cs" />
+    <Compile Include="SmellDetectors\SubSub__BulletSmellDetector.cs" />
     <Compile Include="View\PaneBackWinControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -270,6 +276,8 @@
     <Compile Include="slideQAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
+    <None Include="Resources\en_US.dic" />
+    <None Include="Resources\en_US_a.aff" />
     <None Include="slideQAddIn.Designer.xml">
       <DependentUpon>slideQAddIn.cs</DependentUpon>
     </None>
@@ -285,6 +293,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Hunspellx64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Hunspellx86.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Images\icon.png" />
     <None Include="Resources\icon.bmp" />
   </ItemGroup>
@@ -293,6 +307,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DOC\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace slideQ.SmellDetectors
 {
-    class BYOBSmellDetector : ISmellDetector
+    class SubSub__BulletSmellDetector : ISmellDetector
     {
         private MasterDataModel dataModel;
 
-        public BYOBSmellDetector(MasterDataModel dataModel)
+        public SubSub__BulletSmellDetector(MasterDataModel dataModel)
         {
             this.dataModel = dataModel;
         }
@@ -22,12 +22,11 @@ namespace slideQ.SmellDetectors
 
             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
             {
-                List<CharAttribute> SmallTextSmell = slide.TextFontSize.Where(x => x.Size < Constants.BYOB_THRESHOLD_TEXT_SIZE && x.Size!=1).ToList();
-                if (SmallTextSmell.Count > 0)
+                if (slide.IndentLevel > Constants.SubSub__Bullet_THRESHOLD)
                 {
                     PresentationSmell smell = new PresentationSmell();
-                    smell.SmellName = Constants.BYOB;
-                    string Cause = "The tool detected the smell since the slide contains ( " + SmallTextSmell.Count + " ) " + "small character";
+                    smell.SmellName = Constants.SubSub__Bullet;
+                    string Cause = "The tool detected the smell since the slide contains ( " + slide.IndentLevel + " ) " + "Shapes which contains bullet indent level more then two";
                     smell.Cause = Cause;
                     smell.SlideNo = slide.SlideNo;
                     smellList.Add(smell);

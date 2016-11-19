@@ -21,6 +21,9 @@ namespace slideQ.SmellDetectors
             ColormaniaSmell(dataModel);
             ItsLasVegasSmell(dataModel);
             SecretaryofHiPUSmell(dataModel);
+            ChaoticStylistSmell(dataModel);
+            StungbySpellBeeSmell(dataModel);
+            SubSub__BulletSmell(dataModel);
             return smellsList;
         }
 
@@ -48,6 +51,24 @@ namespace slideQ.SmellDetectors
         private void SecretaryofHiPUSmell(MasterDataModel dataModel)
         {
             SecretaryofHiPUSmellDetector detector = new SecretaryofHiPUSmellDetector(dataModel);
+            smellsList.AddRange(detector.detect());
+        }
+
+        private void ChaoticStylistSmell(MasterDataModel dataModel)
+        {
+            ChaoticStylistSmellDetectors detector = new ChaoticStylistSmellDetectors(dataModel);
+            smellsList.AddRange(detector.detect());
+        }
+
+        private void StungbySpellBeeSmell(MasterDataModel dataModel)
+        {
+            StungbySpellBeeSmellDetector detector = new StungbySpellBeeSmellDetector(dataModel);
+            smellsList.AddRange(detector.detect());
+        }
+
+        private void SubSub__BulletSmell(MasterDataModel dataModel)
+        {
+            SubSub__BulletSmellDetector detector = new SubSub__BulletSmellDetector(dataModel);
             smellsList.AddRange(detector.detect());
         }
     }

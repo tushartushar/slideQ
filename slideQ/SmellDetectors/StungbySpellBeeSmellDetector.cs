@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace slideQ.SmellDetectors
 {
-    class BYOBSmellDetector : ISmellDetector
+    class StungbySpellBeeSmellDetector : ISmellDetector
     {
         private MasterDataModel dataModel;
 
-        public BYOBSmellDetector(MasterDataModel dataModel)
+        public StungbySpellBeeSmellDetector(MasterDataModel dataModel)
         {
             this.dataModel = dataModel;
         }
@@ -22,12 +22,11 @@ namespace slideQ.SmellDetectors
 
             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
             {
-                List<CharAttribute> SmallTextSmell = slide.TextFontSize.Where(x => x.Size < Constants.BYOB_THRESHOLD_TEXT_SIZE && x.Size!=1).ToList();
-                if (SmallTextSmell.Count > 0)
+                 if (slide.TotalSpellingMistake > Constants.Stung_by_spell_bee_THRESHOLD)
                 {
                     PresentationSmell smell = new PresentationSmell();
-                    smell.SmellName = Constants.BYOB;
-                    string Cause = "The tool detected the smell since the slide contains ( " + SmallTextSmell.Count + " ) " + "small character";
+                    smell.SmellName = Constants.Stungbyspellbee;
+                    string Cause = "The tool detected the smell since the slide contains ( " + slide.TotalSpellingMistake + " ) " + "Spelling Mistakes";
                     smell.Cause = Cause;
                     smell.SlideNo = slide.SlideNo;
                     smellList.Add(smell);

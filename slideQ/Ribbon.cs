@@ -89,6 +89,8 @@ namespace slideQ
         {
             try
             {
+                //MessageBox.Show("Count of Slides: " + Globals.slideQAddIn.Application.ActivePresentation.Slides.Count, Constants.AppName);
+                SmellDisplayControl.PPTSmellList.ItemsSource = null;
                 SmellDetector detector = new SmellDetector();
                 List<PresentationSmell> presentationSmells = detector.detectPresentationSmells(Globals.slideQAddIn.Application.ActivePresentation.Slides);
                 SmellDisplayControl.PPTSmellList.ItemsSource = presentationSmells;
@@ -122,6 +124,7 @@ namespace slideQ
         public Bitmap GetImage(Office.IRibbonControl control)
         {
             return new Bitmap(slideQ.Properties.Resources.icon);
+          
         }
         #endregion
     }
