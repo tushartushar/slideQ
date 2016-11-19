@@ -22,10 +22,10 @@ namespace slideQ.SmellDetectors
 
             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
             {
-                if (slide.IndentLevel > Constants.SubSub__Bullet_THRESHOLD)
+                if (slide.IndentLevel > Constants.SUBSUB_BULLET_THRESHOLD)
                 {
                     PresentationSmell smell = new PresentationSmell();
-                    smell.SmellName = Constants.SubSub__Bullet;
+                    smell.SmellName = Constants.SUBSUB_BULLET;
                     string Cause = "The tool detected the smell since the slide contains ( " + slide.IndentLevel + " ) " + "Shapes which contains bullet indent level more then two";
                     smell.Cause = Cause;
                     smell.SlideNo = slide.SlideNo;

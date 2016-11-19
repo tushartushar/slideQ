@@ -22,10 +22,10 @@ namespace slideQ.SmellDetectors
 
             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
             {
-                 if (slide.TotalSpellingMistake > Constants.Stung_by_spell_bee_THRESHOLD)
+                 if (slide.TotalSpellingMistake > Constants.STUNG_BY_SPELLBEE_THRESHOLD)
                 {
                     PresentationSmell smell = new PresentationSmell();
-                    smell.SmellName = Constants.Stungbyspellbee;
+                    smell.SmellName = Constants.STUNG_BY_SPELLBEE;
                     string Cause = "The tool detected the smell since the slide contains ( " + slide.TotalSpellingMistake + " ) " + "Spelling Mistakes";
                     smell.Cause = Cause;
                     smell.SlideNo = slide.SlideNo;

@@ -27,7 +27,7 @@ namespace slideQ.Model
             TotalSpellingMistake = 0;
             IndentLevel = 0;
             countText();
-            NoOfAniMationINTheSlide= NoOfEnimationInSlide();
+            NoOfAnimationsInTheSlide= NoOfEnimationInSlide();
             CheckSlideHeaderFooter();
             GetSlideLayout();
             SlideNo = slide.SlideNumber;
@@ -490,7 +490,7 @@ namespace slideQ.Model
         public int ColorSchemCount { get; set; }
         public List<CharAttribute> TextFontSize = new List<CharAttribute>();
 
-        public int NoOfAniMationINTheSlide { get; set; }
+        public int NoOfAnimationsInTheSlide { get; set; }
 
         public bool TitleHavingUnderLine { get; set; }
 

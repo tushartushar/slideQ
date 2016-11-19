@@ -9,9 +9,9 @@ namespace slideQ.SmellDetectors
 {
     class SecretaryofHiPUSmellDetector :ISmellDetector
     {
-          private MasterDataModel dataModel;
+        private MasterDataModel dataModel;
 
-          public SecretaryofHiPUSmellDetector(MasterDataModel dataModel)
+        public SecretaryofHiPUSmellDetector(MasterDataModel dataModel)
         {
             this.dataModel = dataModel;
         }
@@ -22,10 +22,10 @@ namespace slideQ.SmellDetectors
 
             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
             {
-                if (slide.TitleHavingUnderLine==true )
+                if (slide.TitleHavingUnderLine == true)
                 {
                     PresentationSmell smell = new PresentationSmell();
-                    smell.SmellName = Constants.SecretaryofHiPU;
+                    smell.SmellName = Constants.SECRETARY_OF_HIPU;
                     string Cause = "The tool detected the smell since the slide contains under the slide Title";
                     smell.Cause = Cause;
                     smell.SlideNo = slide.SlideNo;

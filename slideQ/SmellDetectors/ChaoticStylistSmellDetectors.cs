@@ -26,16 +26,13 @@ namespace slideQ.SmellDetectors
                   AllCharObject.AddRange(item);
               }
 
-
               List<CustumCharAttribute> CustomList = AllCharObject.Select(x => new CustumCharAttribute { Size = x.Size, Color = x.Color, FontNameofChar = x.FontNameofChar }).ToList();
-              int Count = CustomList.GroupBy(x => new {x.Color,x.FontNameofChar,x.Size }).Select(x => x.FirstOrDefault()).Count();
+              int Count = CustomList.GroupBy(x => new { x.Color, x.FontNameofChar, x.Size }).Select(x => x.FirstOrDefault()).Count();
          
-      
-
-              if (Count > Constants.Chaotic_Stylist_THRESHOLD)
+              if (Count > Constants.CHAOTIC_STYLIST_THRESHOLD)
               {
                   PresentationSmell smell = new PresentationSmell();
-                  smell.SmellName = Constants.ChaoticStylist;
+                  smell.SmellName = Constants.CHAOTIC_STYLIST;
                   string Cause = "The tool detected the smell since the slides contains ( " + Count + " ) " + "different styles.";
                   smell.Cause = Cause;
                   smell.SlideNo = 1;
@@ -48,9 +45,7 @@ namespace slideQ.SmellDetectors
     class CustumCharAttribute
     {
         public float Size { get; set; }
-
         public int Color { get; set; }
-
         public string FontNameofChar { get; set; }
     }
 }

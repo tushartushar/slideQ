@@ -22,11 +22,11 @@ namespace slideQ.SmellDetectors
 
             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
             {
-                if (slide.NoOfAniMationINTheSlide > Constants.ItsLasVegas_Animation_THRESHOLD)
+                if (slide.NoOfAnimationsInTheSlide > Constants.ITSLASVEGAS_ANIMATION_THRESHOLD)
                 {
                     PresentationSmell smell = new PresentationSmell();
-                    smell.SmellName = Constants.ItsLasVegas;
-                    string Cause = "The tool detected the smell since the slide contains ( " + slide.NoOfAniMationINTheSlide + " ) " + " Animations ";
+                    smell.SmellName = Constants.ITS_LAS_VEGAS;
+                    string Cause = "The tool detected the smell since the slide contains ( " + slide.NoOfAnimationsInTheSlide + " ) " + " Animations ";
                     smell.Cause = Cause;
                     smell.SlideNo = slide.SlideNo;
                     smellList.Add(smell);
