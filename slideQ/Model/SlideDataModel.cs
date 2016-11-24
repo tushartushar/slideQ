@@ -26,7 +26,7 @@ namespace slideQ.Model
             TotalSpellingMistake = 0;
             IndentLevel = 0;
             countText();
-            NoOfAnimationsInTheSlide = NoOfEnimationInSlide();
+            NoOfAnimationsInTheSlide= NoOfEnimationInSlide();
             CheckSlideHeaderFooter();
             GetSlideLayout();
             SlideNo = slide.SlideNumber;
@@ -40,11 +40,7 @@ namespace slideQ.Model
                 Tex.WriteLine(DateTime.Now.ToString() + " " + str);
                 Tex.Close();
             }
-<<<<<<< HEAD
-            catch (Exception)
-=======
             catch(Exception)
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
             {
                 
             }
@@ -54,11 +50,7 @@ namespace slideQ.Model
             int count = 0;
             foreach (PPT.Shape shape in slide.Shapes)
                 count += countTextFromShape(shape);
-<<<<<<< HEAD
-
-=======
             
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
             TotalTextCount = count;
         }
 
@@ -102,11 +94,7 @@ namespace slideQ.Model
             return count;
         }
 
-<<<<<<< HEAD
-
-=======
         
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
         private int CheckForHavingText(int count, PPT.Shape InheritShape)
         {
             if (InheritShape.TextFrame.HasText == MsoTriState.msoTrue)
@@ -142,11 +130,7 @@ namespace slideQ.Model
             for (int index = 0; index < Textrange.Text.Count(); index++)
             {
                 PPT.TextRange text = Textrange.Find(Textrange.Text[index].ToString(), index);
-<<<<<<< HEAD
-                if (text.Font.Underline == MsoTriState.msoTrue)
-=======
                 if(text.Font.Underline==MsoTriState.msoTrue)
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
                 {
                     return true;
                 }
@@ -164,39 +148,25 @@ namespace slideQ.Model
             return count;
         }
 
-<<<<<<< HEAD
-        private int GetspellingmistakeCount(PPT.Shape shape)
-=======
         private int GetspellingmistakeCount( PPT.Shape shape)
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
         {
             int count = 0;
             try
             {
                 PPT.TextRange Textrange = shape.TextFrame.TextRange;
                 string line = Textrange.Text.Trim();
-                count = spellcheckCore(line);
+                count = spellcheckCore( line);
             }
-<<<<<<< HEAD
-            catch (Exception ex)
-=======
             catch(Exception ex)
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
             {
                 Log("Exception occurred. " + ex.Message);
             }
             return count;
         }
 
-<<<<<<< HEAD
-        private int spellcheckCore(string line)
-        {
-            int count = 0;
-=======
         private int spellcheckCore( string line)
         {
             int count=0;
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
             char[] spliter = { ' ', '\r', '\n', ')', '(', ',', ';', '.' };
             string[] words = line.Split(spliter);
             //nuget   http://www.nuget.org/packages/NHunspell/
@@ -216,11 +186,7 @@ namespace slideQ.Model
                             count++;
                         }
                     }
-<<<<<<< HEAD
-                    catch (Exception ex)
-=======
                     catch(Exception ex)
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
                     {
                         Log("Exception occurred. " + ex.Message);
                     }
@@ -338,26 +304,16 @@ namespace slideQ.Model
                 PPT.HeaderFooter Header = slide.HeadersFooters.Header;
                 HeaderText = Header.Text;
             }
-<<<<<<< HEAD
-            catch (Exception ex)
-            {
-                Log("Exception occurred. " + ex.Message);
-=======
             catch(Exception ex)
             { 
                 Log("Exception occurred. " + ex.Message); 
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
             }
             try
             {
                 PPT.HeaderFooter Footer = slide.HeadersFooters.Footer;
                 FooterText = Footer.Text;
             }
-<<<<<<< HEAD
-            catch (Exception ex)
-=======
             catch(Exception ex)
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
             {
                 Log("Exception occurred. " + ex.Message);
             }
@@ -366,33 +322,26 @@ namespace slideQ.Model
         public void CheckIndentLevelForBullet(PPT.Shape shape)
         {
             List<int> indentlevelList = new List<int>();
-<<<<<<< HEAD
-            PPT.TextFrame2 Textframe2 = shape.TextFrame2;
-
-            foreach (Microsoft.Office.Core.TextRange2 text in Textframe2.TextRange.Lines)
-=======
             PPT.TextFrame2 Textframe2 = shape.TextFrame2;  
             foreach (Microsoft.Office.Core.TextRange2 text in Textframe2.TextRange.Lines) 
->>>>>>> 8de1d79c21ac6fe61266229ee66505516d4276c0
             {
-                int i = text.ParagraphFormat.IndentLevel;
-                if (indentlevelList.IndexOf(i) == -1)
+              int i=  text.ParagraphFormat.IndentLevel;
+                if(indentlevelList.IndexOf(i)==-1)
                 {
                     indentlevelList.Add(i);
                 }
             }
-
-            if (indentlevelList.Count > Constants.SUBSUB_BULLET_THRESHOLD)
+            
+            if(indentlevelList.Count>2)
             {
                 IndentLevel++;
             }
-
         }
 
         public int TotalTextCount { get; set; }
 
         public int SlideNo { get; set; }
-
+    
         public ThemeColorScheme Theme { get; set; }
         public int ThemeObjCount { get; set; }
         public PPT.PpSlideLayout Layout { get; set; }
