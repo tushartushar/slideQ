@@ -169,7 +169,7 @@ namespace slideQ.Model
             int count=0;
             char[] spliter = { ' ', '\r', '\n', ')', '(', ',', ';', '.' };
             string[] words = line.Split(spliter);
-            //add-in  http://www.nuget.org/packages/NHunspell/
+            //nuget   http://www.nuget.org/packages/NHunspell/
 
             string afffilepath;
             string dicfilepath;
