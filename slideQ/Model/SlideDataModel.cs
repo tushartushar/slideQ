@@ -12,8 +12,10 @@ namespace slideQ.Model
 {
     public class SlideDataModel
     {
-        private const string LOG_FILE_PATH = "slideQ_log.txt";
+        private const string LOG_FILE_PATH = @"C:\temp\slideQ_log.txt";
         private PPT.Slide slide;
+        private List<PPT.TextRange> slideText = new List<PPT.TextRange>();
+        private List<string> spellingMistakes = new List<string>();
 
         //private static string LogFilePath = @"F:\Rohit\SlideQ\Log\"+DateTime.Now.ToString("ddMMyyyyTHHmmss");
         public SlideDataModel(PPT.Slide slide)
@@ -23,13 +25,29 @@ namespace slideQ.Model
 
         public void build()
         {
-            TotalSpellingMistake = 0;
             IndentLevel = 0;
-            countText();
+
+            extractSlideText();
+            countSlideText();
+
+            extractSpellingmistakes();
+            TotalSpellingMistake = spellingMistakes.Count;
+
+            getCharacterStyles();
+
             NoOfAnimationsInTheSlide= NoOfEnimationInSlide();
             CheckSlideHeaderFooter();
             GetSlideLayout();
             SlideNo = slide.SlideNumber;
+        }
+
+        private void countSlideText()
+        {
+            TotalTextCount = 0;
+            foreach (PPT.TextRange str in slideText)
+            {
+                TotalTextCount += str.Text.Length;
+            }
         }
 
         public static void Log(string str)
@@ -45,43 +63,35 @@ namespace slideQ.Model
                 
             }
         }
-        private void countText()
+        private void extractSlideText()
         {
-            int count = 0;
             foreach (PPT.Shape shape in slide.Shapes)
-                count += countTextFromShape(shape);
-            
-            TotalTextCount = count;
+                extractTextFromShape(shape);
         }
 
-        private int countTextFromShape(PPT.Shape shape)
+        private void extractTextFromShape(PPT.Shape shape)
         {
-            int count = 0;
             if (shape.Type == MsoShapeType.msoGroup)
                 foreach (PPT.Shape myShape in shape.GroupItems)
-                    count += countTextFromShape(myShape);
-            else if (shape.Type == MsoShapeType.msoSmartArt || shape.Type == MsoShapeType.msoPlaceholder)
+                    extractTextFromShape(myShape);
+            else if (shape.Type == MsoShapeType.msoSmartArt)
             {
                 try
                 {
                     SmartArtNodes nodes = shape.SmartArt.AllNodes;
-                    foreach (SmartArtNode node in nodes)
+                
+                foreach (SmartArtNode node in nodes)
+                {
+                    try
                     {
-                        try
-                        {
-                            if (node.TextFrame2.HasText == MsoTriState.msoTrue)
-                            {
-                                GetNodeCharAttribute(node.TextFrame2);
-                                string text = String.Join("", node.TextFrame2.TextRange.Text.Split('\t', '\r'));
-                                count += text.Count();
-                                TotalSpellingMistake = TotalSpellingMistake + spellcheckCore(node.TextFrame2.TextRange.Text);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Log("Exception occurred. " + ex.Message);
-                        }
+                        if (node.TextFrame2.HasText == MsoTriState.msoTrue)
+                            slideText.Add((PPT.TextRange)node.TextFrame2.TextRange);
                     }
+                    catch (Exception ex)
+                    {
+                        Log("Exception occurred. " + ex.Message);
+                    }
+                }
                 }
                 catch (Exception ex)
                 {
@@ -90,25 +100,22 @@ namespace slideQ.Model
             }
 
             if (shape.HasTextFrame == MsoTriState.msoTrue)
-                count += CheckForHavingText(count, shape);
-            return count;
+                CheckForHavingText(shape);
         }
 
         
-        private int CheckForHavingText(int count, PPT.Shape InheritShape)
+        private void CheckForHavingText(PPT.Shape InheritShape)
         {
             if (InheritShape.TextFrame.HasText == MsoTriState.msoTrue)
             {
-                count = GetCharCount(count, InheritShape);
-                TotalSpellingMistake = TotalSpellingMistake + GetspellingmistakeCount(InheritShape);
-                GetTextAttribute(InheritShape);
+                slideText.Add(InheritShape.TextFrame.TextRange);
+                
                 CheckIndentLevelForBullet(InheritShape);
                 if (ExtractSlideTitlefromShape(InheritShape))
                 {
                     TitleHavingUnderLine = IsHavingUnderLine(InheritShape);
                 }
             }
-            return count;
         }
         private bool ExtractSlideTitlefromShape(PPT.Shape shape)
         {
@@ -138,35 +145,14 @@ namespace slideQ.Model
             return IsHavingUnderLineCounter;
         }
 
-        private int GetCharCount(int count, PPT.Shape shape)
+        private void extractSpellingmistakes()
         {
-            PPT.TextRange Textrange = shape.TextFrame.TextRange;
-            //We need to remove \t and \r for accurate text count
-            string text = String.Join("", Textrange.Text.Split('\t', '\r'));
-
-            count += text.Count();
-            return count;
+            foreach (PPT.TextRange str in slideText)
+                spellcheck(str.Text);
         }
 
-        private int GetspellingmistakeCount( PPT.Shape shape)
+        private void spellcheck(string line)
         {
-            int count = 0;
-            try
-            {
-                PPT.TextRange Textrange = shape.TextFrame.TextRange;
-                string line = Textrange.Text.Trim();
-                count = spellcheckCore( line);
-            }
-            catch(Exception ex)
-            {
-                Log("Exception occurred. " + ex.Message);
-            }
-            return count;
-        }
-
-        private int spellcheckCore( string line)
-        {
-            int count=0;
             char[] spliter = { ' ', '\r', '\n', ')', '(', ',', ';', '.' };
             string[] words = line.Split(spliter);
             //nuget   http://www.nuget.org/packages/NHunspell/
@@ -175,24 +161,24 @@ namespace slideQ.Model
             string dicfilepath;
             WritefilesintempFolder(out afffilepath, out dicfilepath);
 
-            using (Hunspell hunspell = new Hunspell(afffilepath, dicfilepath))
+            try
             {
-                foreach (string word in words)
+                using (Hunspell hunspell = new Hunspell(afffilepath, dicfilepath))
                 {
-                    try
+                    foreach (string word in words)
                     {
                         if (!hunspell.Spell(word))
                         {
-                            count++;
+                            spellingMistakes.Add(word);
                         }
-                    }
-                    catch(Exception ex)
-                    {
-                        Log("Exception occurred. " + ex.Message);
+
                     }
                 }
             }
-            return count;
+            catch (Exception ex)
+            {
+                Log("Exception occurred. " + ex.Message);
+            }
         }
 
         private static void WritefilesintempFolder(out string afffilepath, out string dicfilepath)
@@ -210,28 +196,21 @@ namespace slideQ.Model
             }
         }
 
-        private void GetTextAttribute(PPT.Shape shape)
+        private void getCharacterStyles()
         {
-            PPT.TextRange Textrange = shape.TextFrame.TextRange;
-            GetCharAttribute(Textrange);
-        }
-
-        private void GetNodeCharAttribute(Microsoft.Office.Core.TextFrame2 TextFrame)
-        {
-            Microsoft.Office.Core.TextRange2 Textrange = TextFrame.TextRange;
-
-            for (int index = 0; index < Textrange.Text.Count(); index++)
+            foreach(PPT.TextRange str in slideText)
+            for (int index = 0; index < str.Text.Count(); index++)
             {
                 try
                 {
-                    Microsoft.Office.Core.TextRange2 text = Textrange.Find(Textrange.Text[index].ToString(), index);
+                    PPT.TextRange text = str.Find(str.Text[index].ToString(), index);
                     float sz = text.Font.Size;
-                    CharAttribute attr = new CharAttribute();
-                    attr.Size = sz;
-                    attr.Ch = Textrange.Text[index];
-                    attr.Color = text.Font.Fill.ForeColor.RGB;
-                    attr.FontNameofChar = text.Font.Name;
-                    TextFontSize.Add(attr);
+                    TextStyle style = new TextStyle();
+                    style.Size = sz;
+                    style.Character = str.Text[index];
+                    style.Color = text.Font.Color.RGB;
+                    style.FontName = text.Font.Name;
+                    TextStlyeList.Add(style);
                 }
                 catch (Exception ex)
                 {
@@ -240,27 +219,6 @@ namespace slideQ.Model
             }
         }
 
-        private void GetCharAttribute(PPT.TextRange Textrange)
-        {
-            for (int index = 0; index < Textrange.Text.Count(); index++)
-            {
-                try
-                {
-                    PPT.TextRange text = Textrange.Find(Textrange.Text[index].ToString(), index);
-                    float sz = text.Font.Size;
-                    CharAttribute attr = new CharAttribute();
-                    attr.Size = sz;
-                    attr.Ch = Textrange.Text[index];
-                    attr.Color = text.Font.Color.RGB;
-                    attr.FontNameofChar = text.Font.Name;
-                    TextFontSize.Add(attr);
-                }
-                catch (Exception ex)
-                {
-                    Log("Exception occurred. " + ex.Message);
-                }
-            }
-        }
         public void GetSlideLayout()
         {
             try
@@ -351,7 +309,7 @@ namespace slideQ.Model
 
         public PPT.ColorScheme ColorSchem { get; set; }
         public int ColorSchemCount { get; set; }
-        public List<CharAttribute> TextFontSize = new List<CharAttribute>();
+        public List<TextStyle> TextStlyeList = new List<TextStyle>();
 
         public int NoOfAnimationsInTheSlide { get; set; }
 
@@ -363,13 +321,13 @@ namespace slideQ.Model
         public string FooterText { get; set; }
     }
 
-    public class CharAttribute
+    public class TextStyle
     {
-        public char Ch { get; set; }
+        public char Character { get; set; }
         public float Size { get; set; }
 
         public int Color { get; set; }
 
-        public string FontNameofChar { get; set; }
+        public string FontName { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace slideQ.SmellDetectors
 
             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
             {
-                List<CharAttribute> SmallTextSmell = slide.TextFontSize.Where(x => x.Size < Constants.BYOB_THRESHOLD_TEXT_SIZE && x.Size!=1).ToList();
+                List<TextStyle> SmallTextSmell = slide.TextStlyeList.Where(x => x.Size < Constants.BYOB_THRESHOLD_TEXT_SIZE && x.Size!=1).ToList();
                 if (SmallTextSmell.Count > 0)
                 {
                     PresentationSmell smell = new PresentationSmell();

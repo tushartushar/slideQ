@@ -19,14 +19,14 @@ namespace slideQ.SmellDetectors
           public List<PresentationSmell> detect()
           {
               List<PresentationSmell> smellList = new List<PresentationSmell>();
-              List<List<CharAttribute>> CharAttrList=  dataModel.SlideDataModelList.Select(x => x.TextFontSize).ToList();
-              List<CharAttribute> AllCharObject = new List<CharAttribute>();
-              foreach (List<CharAttribute> item in CharAttrList)
+              List<List<TextStyle>> CharAttrList=  dataModel.SlideDataModelList.Select(x => x.TextStlyeList).ToList();
+              List<TextStyle> AllCharObject = new List<TextStyle>();
+              foreach (List<TextStyle> item in CharAttrList)
               {
                   AllCharObject.AddRange(item);
               }
 
-              List<CustumCharAttribute> CustomList = AllCharObject.Select(x => new CustumCharAttribute { Size = x.Size, Color = x.Color, FontNameofChar = x.FontNameofChar }).ToList();
+              List<CustumCharAttribute> CustomList = AllCharObject.Select(x => new CustumCharAttribute { Size = x.Size, Color = x.Color, FontNameofChar = x.FontName }).ToList();
               int Count = CustomList.GroupBy(x => new { x.Color, x.FontNameofChar, x.Size }).Select(x => x.FirstOrDefault()).Count();
          
               if (Count > Constants.CHAOTIC_STYLIST_THRESHOLD)
