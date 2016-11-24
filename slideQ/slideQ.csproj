@@ -146,8 +146,7 @@
     <Reference Include="Mono.Cecil.Rocks">
       <HintPath>..\packages\NUnit3TestAdapter.3.4.1\lib\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
-    <Reference Include="NHunspell, Version=1.2.5554.16953, Culture=neutral, PublicKeyToken=1ac793ea843b4366, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NHunspell">
       <HintPath>..\packages\NHunspell.1.2.5554.16953\lib\net\NHunspell.dll</HintPath>
     </Reference>
     <Reference Include="nunit.engine">

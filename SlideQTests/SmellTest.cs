@@ -97,7 +97,7 @@ namespace SlideQTests
             bool found = false;
             foreach (PresentationSmell smell in presentationSmells)
             {
-                if (smell.SmellName.Equals(slideQ.Constants.ItsLasVegas) && smell.SlideNo == 2)
+                if (smell.SmellName.Equals(slideQ.Constants.ITS_LAS_VEGAS) && smell.SlideNo == 2)
                     found = true;
             }
             Assert.AreEqual(true, found);
@@ -112,7 +112,7 @@ namespace SlideQTests
             bool found = false;
             foreach (PresentationSmell smell in presentationSmells)
             {
-                if (smell.SmellName.Equals(slideQ.Constants.SecretaryofHiPU) && smell.SlideNo == 3)
+                if (smell.SmellName.Equals(slideQ.Constants.SECRETARY_OF_HIPU) && smell.SlideNo == 3)
                     found = true;
             }
             Assert.AreEqual(true, found);
@@ -128,7 +128,7 @@ namespace SlideQTests
             bool found = false;
             foreach (PresentationSmell smell in presentationSmells)
             {
-                if (smell.SmellName.Equals(slideQ.Constants.ChaoticStylist) && smell.SlideNo == 1)
+                if (smell.SmellName.Equals(slideQ.Constants.CHAOTIC_STYLIST) && smell.SlideNo == 1)
                     found = true;
             }
             Assert.AreEqual(true, found);
@@ -144,7 +144,7 @@ namespace SlideQTests
             bool found = false;
             foreach (PresentationSmell smell in presentationSmells)
             {
-                if (smell.SmellName.Equals(slideQ.Constants.SubSub__Bullet) && smell.SlideNo == 5)
+                if (smell.SmellName.Equals(slideQ.Constants.SUBSUB_BULLET) && smell.SlideNo == 5)
                     found = true;
             }
             Assert.AreEqual(true, found);
@@ -159,7 +159,7 @@ namespace SlideQTests
             bool found = false;
             foreach (PresentationSmell smell in presentationSmells)
             {
-                if (smell.SmellName.Equals(slideQ.Constants.Stungbyspellbee) && smell.SlideNo == 6)
+                if (smell.SmellName.Equals(slideQ.Constants.STUNG_BY_SPELLBEE) && smell.SlideNo == 6)
                     found = true;
             }
             Assert.AreEqual(true, found);
