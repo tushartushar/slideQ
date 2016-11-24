@@ -322,17 +322,17 @@ namespace slideQ.Model
         public void CheckIndentLevelForBullet(PPT.Shape shape)
         {
             List<int> indentlevelList = new List<int>();
-            PPT.TextFrame2 Textframe2 = shape.TextFrame2;  
-            foreach (Microsoft.Office.Core.TextRange2 text in Textframe2.TextRange.Lines) 
+            PPT.TextFrame2 Textframe2 = shape.TextFrame2;
+            foreach (Microsoft.Office.Core.TextRange2 text in Textframe2.TextRange.Lines)
             {
-              int i=  text.ParagraphFormat.IndentLevel;
-                if(indentlevelList.IndexOf(i)==-1)
+                int i = text.ParagraphFormat.IndentLevel;
+                if (indentlevelList.IndexOf(i) == -1)
                 {
                     indentlevelList.Add(i);
                 }
             }
-            
-            if(indentlevelList.Count>2)
+
+            if (indentlevelList.Count > Constants.SUBSUB_BULLET_THRESHOLD)
             {
                 IndentLevel++;
             }
