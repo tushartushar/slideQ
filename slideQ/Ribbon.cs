@@ -110,14 +110,12 @@ namespace slideQ
             int startingSlideNo = Globals.slideQAddIn.Application.ActivePresentation.Slides[1].SlideNumber;
             try
             {
-                if (startingSlideNo > 1)
-                    Globals.slideQAddIn.Application.ActivePresentation.Slides[index - startingSlideNo + 1].Select();
+                Globals.slideQAddIn.Application.ActivePresentation.Slides[index - startingSlideNo + 1].Select();
             }
-            catch(COMException)
+            catch (COMException)
             {
                 //Log the exception - TODO
             }
-          
         }
    
 

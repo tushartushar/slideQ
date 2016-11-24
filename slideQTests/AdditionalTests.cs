@@ -30,15 +30,6 @@ namespace SlideQTests
             Presentations oPresSet = ppApp.Presentations;
             pptObject = oPresSet.Open(@path, MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoTrue);
         }
-        [Test]
-        public void TextCountTest_withCarriageReturn()
-        {
-            List<SlideDataModel> SlideDataModelList = new List<SlideDataModel>();
-            Slide slide = pptObject.Slides[18];
-            SlideDataModel slideModel = new SlideDataModel(slide);
-            slideModel.build();
-
-            Assert.AreEqual(121, slideModel.TotalTextCount);
-        }
+        
     }
 }

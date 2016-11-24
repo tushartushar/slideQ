@@ -26,7 +26,7 @@ namespace slideQ.SmellDetectors
                 {
                     PresentationSmell smell = new PresentationSmell();
                     smell.SmellName = Constants.SECRETARY_OF_HIPU;
-                    string Cause = "The tool detected the smell since the slide contains under the slide Title";
+                    string Cause = "The tool detected the smell because the slide title contains underlined text.";
                     smell.Cause = Cause;
                     smell.SlideNo = slide.SlideNo;
                     smellList.Add(smell);

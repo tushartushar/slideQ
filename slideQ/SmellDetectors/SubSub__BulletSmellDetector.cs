@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace slideQ.SmellDetectors
 {
-    class SubSub__BulletSmellDetector : ISmellDetector
+    class SubSubBulletSmellDetector : ISmellDetector
     {
         private MasterDataModel dataModel;
 
-        public SubSub__BulletSmellDetector(MasterDataModel dataModel)
+        public SubSubBulletSmellDetector(MasterDataModel dataModel)
         {
             this.dataModel = dataModel;
         }
@@ -22,11 +22,11 @@ namespace slideQ.SmellDetectors
 
             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
             {
-                if (slide.IndentLevel > Constants.SUBSUB_BULLET_THRESHOLD)
+                if (slide.MaxIndentLevel > Constants.SUBSUB_BULLET_THRESHOLD)
                 {
                     PresentationSmell smell = new PresentationSmell();
                     smell.SmellName = Constants.SUBSUB_BULLET;
-                    string Cause = "The tool detected the smell since the slide contains ( " + slide.IndentLevel + " ) " + "Shapes which contains bullet indent level more then two";
+                    string Cause = "The tool detected the smell since the slide contains " + slide.MaxIndentLevel + " indentation levels.";
                     smell.Cause = Cause;
                     smell.SlideNo = slide.SlideNo;
                     smellList.Add(smell);

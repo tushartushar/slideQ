@@ -14,7 +14,9 @@ namespace slideQ.Model
     {
         private const string LOG_FILE_PATH = @"C:\temp\slideQ_log.txt";
         private PPT.Slide slide;
+
         private List<PPT.TextRange> slideText = new List<PPT.TextRange>();
+
         private List<string> spellingMistakes = new List<string>();
 
         //private static string LogFilePath = @"F:\Rohit\SlideQ\Log\"+DateTime.Now.ToString("ddMMyyyyTHHmmss");
@@ -25,17 +27,17 @@ namespace slideQ.Model
 
         public void build()
         {
-            IndentLevel = 0;
+            MaxIndentLevel = 0;
 
-            extractSlideText();
+            extractSlideInfo();
             countSlideText();
 
             extractSpellingmistakes();
             TotalSpellingMistake = spellingMistakes.Count;
 
-            getCharacterStyles();
+            extractCharacterStyles();
 
-            NoOfAnimationsInTheSlide= NoOfEnimationInSlide();
+            NoOfAnimationsInTheSlide= noOfEnimationInSlide();
             CheckSlideHeaderFooter();
             GetSlideLayout();
             SlideNo = slide.SlideNumber;
@@ -59,21 +61,19 @@ namespace slideQ.Model
                 Tex.Close();
             }
             catch(Exception)
-            {
-                
-            }
+            {}
         }
-        private void extractSlideText()
+        private void extractSlideInfo()
         {
             foreach (PPT.Shape shape in slide.Shapes)
-                extractTextFromShape(shape);
+                extractInfoFromShape(shape);
         }
 
-        private void extractTextFromShape(PPT.Shape shape)
+        private void extractInfoFromShape(PPT.Shape shape)
         {
             if (shape.Type == MsoShapeType.msoGroup)
                 foreach (PPT.Shape myShape in shape.GroupItems)
-                    extractTextFromShape(myShape);
+                    extractInfoFromShape(myShape);
             else if (shape.Type == MsoShapeType.msoSmartArt)
             {
                 try
@@ -100,24 +100,23 @@ namespace slideQ.Model
             }
 
             if (shape.HasTextFrame == MsoTriState.msoTrue)
-                CheckForHavingText(shape);
+                extractInfo(shape);
         }
 
         
-        private void CheckForHavingText(PPT.Shape InheritShape)
+        private void extractInfo(PPT.Shape shape)
         {
-            if (InheritShape.TextFrame.HasText == MsoTriState.msoTrue)
+            if (shape.TextFrame.HasText == MsoTriState.msoTrue)
             {
-                slideText.Add(InheritShape.TextFrame.TextRange);
-                
-                CheckIndentLevelForBullet(InheritShape);
-                if (ExtractSlideTitlefromShape(InheritShape))
+                slideText.Add(shape.TextFrame.TextRange);
+                extractIndentLevels(shape);
+                if (isSlideContainsTitle(shape))
                 {
-                    TitleHavingUnderLine = IsHavingUnderLine(InheritShape);
+                    TitleHavingUnderLine = IsHavingUnderLine(shape);
                 }
             }
         }
-        private bool ExtractSlideTitlefromShape(PPT.Shape shape)
+        private bool isSlideContainsTitle(PPT.Shape shape)
         {
             try
             {
@@ -132,17 +131,16 @@ namespace slideQ.Model
 
         private bool IsHavingUnderLine(PPT.Shape shape)
         {
-            bool IsHavingUnderLineCounter = false;
             PPT.TextRange Textrange = shape.TextFrame.TextRange;
             for (int index = 0; index < Textrange.Text.Count(); index++)
             {
                 PPT.TextRange text = Textrange.Find(Textrange.Text[index].ToString(), index);
-                if(text.Font.Underline==MsoTriState.msoTrue)
+                if (text.Font.Underline == MsoTriState.msoTrue)
                 {
                     return true;
                 }
             }
-            return IsHavingUnderLineCounter;
+            return false;
         }
 
         private void extractSpellingmistakes()
@@ -196,9 +194,14 @@ namespace slideQ.Model
             }
         }
 
-        private void getCharacterStyles()
+        private void extractCharacterStyles()
         {
-            foreach(PPT.TextRange str in slideText)
+            foreach (PPT.TextRange str in slideText)
+                getCharacterStyles(str);
+        }
+
+        private void getCharacterStyles(PPT.TextRange str)
+        {
             for (int index = 0; index < str.Text.Count(); index++)
             {
                 try
@@ -236,7 +239,7 @@ namespace slideQ.Model
             }
         }
 
-        private int NoOfEnimationInSlide()
+        private int noOfEnimationInSlide()
         {
             int numOfAnimations = 0;
             try
@@ -277,9 +280,10 @@ namespace slideQ.Model
             }
         }
 
-        public void CheckIndentLevelForBullet(PPT.Shape shape)
+        public void extractIndentLevels(PPT.Shape shape)
         {
             List<int> indentlevelList = new List<int>();
+
             PPT.TextFrame2 Textframe2 = shape.TextFrame2;  
             foreach (Microsoft.Office.Core.TextRange2 text in Textframe2.TextRange.Lines) 
             {
@@ -290,12 +294,12 @@ namespace slideQ.Model
                 }
             }
             
-            if(indentlevelList.Count>2)
+            if(indentlevelList.Count>MaxIndentLevel)
             {
-                IndentLevel++;
+                MaxIndentLevel = indentlevelList.Count;
             }
         }
-
+        
         public int TotalTextCount { get; set; }
 
         public int SlideNo { get; set; }
@@ -315,7 +319,7 @@ namespace slideQ.Model
 
         public bool TitleHavingUnderLine { get; set; }
 
-        public int IndentLevel { get; set; }
+        public int MaxIndentLevel { get; set; }
         public string HeaderText { get; set; }
 
         public string FooterText { get; set; }

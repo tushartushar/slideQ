@@ -26,7 +26,7 @@ namespace slideQ.SmellDetectors
                 {
                     PresentationSmell smell = new PresentationSmell();
                     smell.SmellName = Constants.ITS_LAS_VEGAS;
-                    string Cause = "The tool detected the smell since the slide contains ( " + slide.NoOfAnimationsInTheSlide + " ) " + " Animations ";
+                    string Cause = "The tool detected the smell since the slide contains " + slide.NoOfAnimationsInTheSlide + " animations.";
                     smell.Cause = Cause;
                     smell.SlideNo = slide.SlideNo;
                     smellList.Add(smell);
