@@ -22,7 +22,7 @@ namespace slideQ.SmellDetectors
 
             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
             {
-                if (slide.IndentLevel > Constants.SUBSUB_BULLET_THRESHOLD)
+                if (slide.IndentLevel > 0)
                 {
                     PresentationSmell smell = new PresentationSmell();
                     smell.SmellName = Constants.SUBSUB_BULLET;
