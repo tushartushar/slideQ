@@ -23,12 +23,12 @@ namespace slideQ.SmellDetectors
 
              foreach (SlideDataModel slide in dataModel.SlideDataModelList)
              {
-                 int ColorCount = slide.TextFontSize.GroupBy(x => x.Color).Select(x => x.FirstOrDefault()).Count();
+                 int ColorCount = slide.TextStlyeList.GroupBy(x => x.Color).Select(x => x.FirstOrDefault()).Count();
                  if (ColorCount > Constants.COLOR_MANIA_THRESHOLD)
                  {
                      PresentationSmell smell = new PresentationSmell();
                      smell.SmellName = Constants.COLORMANIA;
-                     string Cause = "The tool detected the smell since the slide contains ( " + ColorCount + " ) " + "Multiple Color";
+                     string Cause = "The tool detected the smell since the slide text is in " + ColorCount + " colors.";
                      smell.Cause = Cause;
                      smell.SlideNo = slide.SlideNo;
                      smellList.Add(smell);

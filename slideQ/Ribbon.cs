@@ -107,15 +107,15 @@ namespace slideQ
 
         public static void Gotoslide(int index)
         {
+            int startingSlideNo = Globals.slideQAddIn.Application.ActivePresentation.Slides[1].SlideNumber;
             try
             {
-                Globals.slideQAddIn.Application.ActivePresentation.Slides[index].Select();
+                Globals.slideQAddIn.Application.ActivePresentation.Slides[index - startingSlideNo + 1].Select();
             }
-            catch(COMException)
+            catch (COMException)
             {
-                Globals.slideQAddIn.Application.ActivePresentation.Slides[index - Globals.slideQAddIn.Application.ActivePresentation.Slides[1].SlideNumber+1].Select();
+                //Log the exception - TODO
             }
-          
         }
    
 

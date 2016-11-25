@@ -22,12 +22,12 @@ namespace slideQ.SmellDetectors
 
             foreach (SlideDataModel slide in dataModel.SlideDataModelList)
             {
-                List<CharAttribute> SmallTextSmell = slide.TextFontSize.Where(x => x.Size < Constants.BYOB_THRESHOLD_TEXT_SIZE && x.Size!=1).ToList();
+                List<TextStyle> SmallTextSmell = slide.TextStlyeList.Where(x => x.Size < Constants.BYOB_THRESHOLD_TEXT_SIZE && x.Size!=1 && x.Character!='-' && x.Character!='\r' && x.Character!='\t').ToList();
                 if (SmallTextSmell.Count > 0)
                 {
                     PresentationSmell smell = new PresentationSmell();
                     smell.SmellName = Constants.BYOB;
-                    string Cause = "The tool detected the smell since the slide contains ( " + SmallTextSmell.Count + " ) " + "small character";
+                    string Cause = "The tool detected the smell since the slide contains " + SmallTextSmell.Count + " small characters.";
                     smell.Cause = Cause;
                     smell.SlideNo = slide.SlideNo;
                     smellList.Add(smell);

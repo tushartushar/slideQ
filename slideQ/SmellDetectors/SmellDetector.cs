@@ -18,12 +18,12 @@ namespace slideQ.SmellDetectors
 
             detectTextHellSmell(dataModel);
             detectByobSmell(dataModel);
-            ColormaniaSmell(dataModel);
-            ItsLasVegasSmell(dataModel);
-            SecretaryofHiPUSmell(dataModel);
-            ChaoticStylistSmell(dataModel);
-            StungbySpellBeeSmell(dataModel);
-            SubSub__BulletSmell(dataModel);
+            detectColormaniaSmell(dataModel);
+            detectItsLasVegasSmell(dataModel);
+            detectSecretaryofHiPUSmell(dataModel);
+            detectChaoticStylistSmell(dataModel);
+            detectStungbySpellBeeSmell(dataModel);
+            detectSubSubBulletSmell(dataModel);
             return smellsList;
         }
 
@@ -37,38 +37,38 @@ namespace slideQ.SmellDetectors
             BYOBSmellDetector detector = new BYOBSmellDetector(dataModel);
             smellsList.AddRange(detector.detect());
         }
-        private void ColormaniaSmell(MasterDataModel dataModel)
+        private void detectColormaniaSmell(MasterDataModel dataModel)
         {
             ColormaniaSmellDetector detector = new ColormaniaSmellDetector(dataModel);
             smellsList.AddRange(detector.detect());
         }
-        private void ItsLasVegasSmell(MasterDataModel dataModel)
+        private void detectItsLasVegasSmell(MasterDataModel dataModel)
         {
             ItsLasVegasSmellDetector detector = new ItsLasVegasSmellDetector(dataModel);
             smellsList.AddRange(detector.detect());
         }
 
-        private void SecretaryofHiPUSmell(MasterDataModel dataModel)
+        private void detectSecretaryofHiPUSmell(MasterDataModel dataModel)
         {
             SecretaryofHiPUSmellDetector detector = new SecretaryofHiPUSmellDetector(dataModel);
             smellsList.AddRange(detector.detect());
         }
 
-        private void ChaoticStylistSmell(MasterDataModel dataModel)
+        private void detectChaoticStylistSmell(MasterDataModel dataModel)
         {
             ChaoticStylistSmellDetectors detector = new ChaoticStylistSmellDetectors(dataModel);
             smellsList.AddRange(detector.detect());
         }
 
-        private void StungbySpellBeeSmell(MasterDataModel dataModel)
+        private void detectStungbySpellBeeSmell(MasterDataModel dataModel)
         {
             StungbySpellBeeSmellDetector detector = new StungbySpellBeeSmellDetector(dataModel);
             smellsList.AddRange(detector.detect());
         }
 
-        private void SubSub__BulletSmell(MasterDataModel dataModel)
+        private void detectSubSubBulletSmell(MasterDataModel dataModel)
         {
-            SubSub__BulletSmellDetector detector = new SubSub__BulletSmellDetector(dataModel);
+            SubSubBulletSmellDetector detector = new SubSubBulletSmellDetector(dataModel);
             smellsList.AddRange(detector.detect());
         }
     }
