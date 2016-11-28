@@ -14,6 +14,8 @@ namespace SlideQTests
     public class SmellTest
     {
         private _Presentation PPTObject;
+        private List<PresentationSmell> SlideDataModelList = null;
+
         [TearDown]
         public void tearDown()
         {
@@ -29,6 +31,8 @@ namespace SlideQTests
             ppApp.Visible = MsoTriState.msoTrue;
             Presentations oPresSet = ppApp.Presentations;
             PPTObject = oPresSet.Open(@path, MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoTrue);
+            SmellDetector detector = new SmellDetector();
+            SlideDataModelList = detector.detectPresentationSmells(PPTObject.Slides);
         }
         [Test]
         public void TextCountTest()
