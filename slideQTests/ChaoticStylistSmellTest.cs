@@ -35,7 +35,7 @@ namespace SlideQTests.TestFile
         public void ChaoticStylistWithSmell()
         {
             bool flag = false;
-            if (SlideDataModelList.Where(x => x.SlideNo == 1 && x.SmellName.Equals(slideQ.Constants.CHAOTIC_STYLIST)) != null)
+            if (SlideDataModelList.Where(x => x.SlideNo == 1 && x.SmellName.Equals(slideQ.Constants.CHAOTIC_STYLIST)).Count() != 0)
                 flag = true;
             Assert.AreEqual(true, flag);
         }

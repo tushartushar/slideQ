@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SlideQTests
 {
-    class ColormaniaSmellTest
+    class ItsLasVegasSmellTest
     {
         private List<PresentationSmell> SlideDataModelList = null;
 
@@ -20,7 +20,7 @@ namespace SlideQTests
         public void GetPPTObject()
         {
             string solution_dir = Path.GetDirectoryName(Path.GetDirectoryName(TestContext.CurrentContext.WorkDirectory));
-            string path = @solution_dir + @"\TestFile\Colormania.pptx";
+            string path = @solution_dir + @"\TestFile\ItsLasVegas.pptx";
             string absolute = Path.GetFullPath(path);
             Application ppApp = new Application();
             ppApp.Visible = MsoTriState.msoTrue;
@@ -29,23 +29,31 @@ namespace SlideQTests
             SmellDetector detector = new SmellDetector();
             SlideDataModelList = detector.detectPresentationSmells(PPTObject.Slides);
         }
-
         [Test]
-        public void PositiveTest()
+        public void NestedSmartartTest()
         {
             bool flag = false;
-            if (SlideDataModelList.Where(x => x.SlideNo == 2 && x.SmellName.Equals(slideQ.Constants.COLORMANIA)).Count() != 0)
+            if (SlideDataModelList.Where(x => x.SlideNo == 2 && x.SmellName.Equals(slideQ.Constants.ITS_LAS_VEGAS)).Count() != 0)
                 flag = true;
             Assert.AreEqual(true, flag);
         }
 
         [Test]
+        public void MultipleObjectsTest()
+        {
+            bool flag = false;
+            if (SlideDataModelList.Where(x => x.SlideNo == 3 && x.SmellName.Equals(slideQ.Constants.ITS_LAS_VEGAS)).Count() != 0)
+                flag = true;
+            Assert.AreEqual(true, flag);
+        }
+         [Test]
         public void NegativeTest()
         {
             bool flag = false;
-            if (SlideDataModelList.Where(x => x.SlideNo == 1 && x.SmellName.Equals(slideQ.Constants.COLORMANIA)).Count() == 0)
+            if (SlideDataModelList.Where(x => x.SlideNo == 1 && x.SmellName.Equals(slideQ.Constants.ITS_LAS_VEGAS)).Count() == 0)
                 flag = true;
             Assert.AreEqual(true, flag);
         }
+
     }
 }

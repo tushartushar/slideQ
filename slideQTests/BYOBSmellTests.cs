@@ -35,7 +35,7 @@ namespace SlideQTests
         public void NormalTest()
         {
             bool flag = false;
-            if (SlideDataModelList.Where(x => x.SlideNo == 1 && x.SmellName.Equals(slideQ.Constants.BYOB))!=null)
+            if (SlideDataModelList.Where(x => x.SlideNo == 1 && x.SmellName.Equals(slideQ.Constants.BYOB)).Count() != 0)
                 flag = true;
             Assert.AreEqual(true, flag);
         }
@@ -44,7 +44,7 @@ namespace SlideQTests
         public void SmartArtTest()
         {
             bool flag = false;
-            if (SlideDataModelList.Where(x => x.SlideNo == 2 && x.SmellName.Equals(slideQ.Constants.BYOB)) != null)
+            if (SlideDataModelList.Where(x => x.SlideNo == 2 && x.SmellName.Equals(slideQ.Constants.BYOB)).Count() != 0)
                 flag = true;
             Assert.AreEqual(true, flag);
         }
@@ -53,7 +53,7 @@ namespace SlideQTests
         public void GroupedSmartArtTest()
         {
             bool flag = false;
-            if (SlideDataModelList.Where(x => x.SlideNo == 3 && x.SmellName.Equals(slideQ.Constants.BYOB)) != null)
+            if (SlideDataModelList.Where(x => x.SlideNo == 3 && x.SmellName.Equals(slideQ.Constants.BYOB)).Count() != 0)
                 flag = true;
             Assert.AreEqual(true, flag);
         }
@@ -71,7 +71,7 @@ namespace SlideQTests
         public void BulletDiffrentStyleTextTest()
         {
             bool flag = false;
-            if (SlideDataModelList.Where(x => x.SlideNo == 6 && x.SmellName.Equals(slideQ.Constants.BYOB)) != null)
+            if (SlideDataModelList.Where(x => x.SlideNo == 6 && x.SmellName.Equals(slideQ.Constants.BYOB)).Count() != 0)
                 flag = true;
             Assert.AreEqual(true, flag);
         }
@@ -80,7 +80,7 @@ namespace SlideQTests
         public void nested()
         {
             bool flag = false;
-            if (SlideDataModelList.Where(x => x.SlideNo == 7 && x.SmellName.Equals(slideQ.Constants.BYOB)) != null)
+            if (SlideDataModelList.Where(x => x.SlideNo == 7 && x.SmellName.Equals(slideQ.Constants.BYOB)).Count() != 0)
                 flag = true;
             Assert.AreEqual(true, flag);
         }
