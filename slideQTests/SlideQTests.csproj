@@ -89,6 +89,7 @@
     <Compile Include="ChaoticStylistSmellTest2.cs" />
     <Compile Include="ColormaniaSmellTest.cs" />
     <Compile Include="ItsLasVegasSmellTest.cs" />
+    <Compile Include="SecretaryofHiPUSmell.cs" />
     <Compile Include="SmellTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmellTestOnEmptySlide.cs" />
