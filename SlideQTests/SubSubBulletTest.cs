@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SlideQTests
 {
-    class SubSubBullet
+    class SubSubBulletTest
     {
         private List<PresentationSmell> SlideDataModelList = null;
 
