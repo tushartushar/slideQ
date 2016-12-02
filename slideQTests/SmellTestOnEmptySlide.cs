@@ -27,6 +27,13 @@ namespace SlideQTests
             PPTObject = oPresSet.Open(@path, MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoTrue);
         }
 
+
+        [TearDown]
+        public void tearDown()
+        {
+            PPTObject.Close();
+        }
+
         [Test]
         public void RunAnalysisProcess()
         {

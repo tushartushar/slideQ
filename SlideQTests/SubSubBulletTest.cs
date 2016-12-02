@@ -16,6 +16,7 @@ namespace SlideQTests
     class SubSubBulletTest
     {
         private List<PresentationSmell> SlideDataModelList = null;
+        private _Presentation PPTObject;
 
         [SetUp]
         public void GetPPTObject()
@@ -26,10 +27,19 @@ namespace SlideQTests
             Application ppApp = new Application();
             ppApp.Visible = MsoTriState.msoTrue;
             Presentations oPresSet = ppApp.Presentations;
-            _Presentation PPTObject = oPresSet.Open(@path, MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoTrue);
+             PPTObject = oPresSet.Open(@path, MsoTriState.msoFalse, MsoTriState.msoFalse, MsoTriState.msoTrue);
             SmellDetector detector = new SmellDetector();
             SlideDataModelList = detector.detectPresentationSmells(PPTObject.Slides);
         }
+
+
+
+        [TearDown]
+        public void tearDown()
+        {
+            PPTObject.Close();
+        }
+
 
         [Test]
         public void NegativeTest1()
