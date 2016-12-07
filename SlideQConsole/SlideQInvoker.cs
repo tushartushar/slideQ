@@ -21,8 +21,9 @@ namespace SlideQConsole
                 if (!CheckInputFilePath(args[0]) || !CheckOutputFilePathDirectory(args[1]))
                 {
                     Console.WriteLine("Input Error : make sure you are providing correct input in console");
-                    Console.WriteLine("Help : your first argument is your input Presentation file. It must be a full file path like ");
-                    Console.WriteLine("Help : your second argument is your output file. It must be a full file path and in this make sure the parent directory Exists on your system, file will be created automatically like ");
+                    Console.WriteLine("Help : your first argument is your input Presentation file. It must be a full file path like E:\\TestFile\\SlideQTestCount.pptx");
+                    Console.WriteLine("Help : your second argument is your output file. It must be a full file path and in this make sure the parent directory Exists on your system, file will be created automatically and only xls extention allowed like f:\\count.xls ");
+                    return;
                 }
                 Application ppApp = new Application();
                 ppApp.Visible = MsoTriState.msoTrue;
@@ -53,7 +54,8 @@ namespace SlideQConsole
         private static bool CheckOutputFilePathDirectory(string path)
         {
             bool flag = false;
-            if (Directory.Exists(path))
+            FileInfo fi = new FileInfo(path);
+            if (Directory.Exists(fi.Directory.FullName))
             {
                 flag = true;
             }
