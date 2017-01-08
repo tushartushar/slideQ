@@ -11,3 +11,6 @@ slideQ detects following presentation smells:
 - Secretary of HiPU
 - Stung by Spell Bee
 - Sub Sub Bullet
+
+## Deploy the plugin
+You may directly deploy the plugin (without compilation) by unpacking the publishedPlugin/publishedPlugin.zip and executing setup.exe.
