@@ -14,7 +14,6 @@ namespace SlideQTests
 {
     class BYOBSmellTests
     {
-
         private List<PresentationSmell> SlideDataModelList = null;
         _Presentation PPTObject { get; set; }
         [SetUp]
