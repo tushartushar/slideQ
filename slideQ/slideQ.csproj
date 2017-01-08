@@ -31,10 +31,10 @@
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>C:\Dev\slideQ\published plugin\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <ApplicationVersion>1.0.0.1</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -328,8 +328,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
         <ProjectProperties HostName="PowerPoint" HostPackage="{29A7B9D7-A7F1-4328-8EF0-6B2D1A56B2C1}" OfficeVersion="15.0" VstxVersion="4.0" ApplicationType="PowerPoint" Language="cs" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\15.0\PowerPoint\InstallRoot\Path#powerpnt.exe" AddItemTemplatesGuid="{51063C3A-E220-4D12-8922-BDA915ACD783}" />
-        <Host Name="PowerPoint" GeneratedCodeNamespace="PowerPointAddInTest_CountSlides" IconIndex="0">
-          <HostItem Name="ThisAddIn" Code="slideQAddIn.cs" CanonicalName="AddIn" CanActivate="false" IconIndex="1" Blueprint="slideQAddIn.Designer.xml" GeneratedCode="slideQAddIn.Designer.cs" />
+        <Host Name="PowerPoint" GeneratedCodeNamespace="PowerPointAddInTest_CountSlides" PublishedHash="69C324AB27932AA2FBF2B7EA72250886FF164DE6" IconIndex="0">
+          <HostItem Name="ThisAddIn" Code="slideQAddIn.cs" CanonicalName="AddIn" CanActivate="false" IconIndex="1" Blueprint="slideQAddIn.Designer.xml" GeneratedCode="slideQAddIn.Designer.cs" PublishedHash="BC0A3EFA968DE191A7681013FE1EB8A7CC74F744" />
         </Host>
       </FlavorProperties>
     </VisualStudio>
