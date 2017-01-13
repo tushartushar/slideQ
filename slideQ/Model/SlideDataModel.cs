@@ -7,9 +7,12 @@ using Microsoft.Office.Core;
 using NHunspell;
 using System.Reflection;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace slideQ.Model
 {
+    [ComVisible(true)]
+    
     public class SlideDataModel
     {
         private const string LOG_FILE_PATH = @"C:\temp\slideQ_log.txt";
@@ -74,7 +77,8 @@ namespace slideQ.Model
             if (shape.Type == MsoShapeType.msoGroup)
                 foreach (PPT.Shape myShape in shape.GroupItems)
                     extractInfoFromShape(myShape);
-            else if (shape.Type == MsoShapeType.msoSmartArt)
+         
+            else if (shape.Type == MsoShapeType.msoSmartArt || shape.Type == MsoShapeType.msoPlaceholder)
             {
                 try
                 {
@@ -85,7 +89,11 @@ namespace slideQ.Model
                     try
                     {
                         if (node.TextFrame2.HasText == MsoTriState.msoTrue)
-                            slideText.Add((PPT.TextRange)node.TextFrame2.TextRange);
+
+                        {
+                            GetNodeCharAttribute(node.TextFrame2);
+                        }
+                          //  slideText.Add((PPT.TextRange)node.Shapes.TextFrame2.TextRange);
                     }
                     catch (Exception ex)
                     {
@@ -102,8 +110,33 @@ namespace slideQ.Model
             if (shape.HasTextFrame == MsoTriState.msoTrue)
                 extractInfo(shape);
         }
+        //test
+        private void GetNodeCharAttribute(Microsoft.Office.Core.TextFrame2 TextFrame)
+        {
+            Microsoft.Office.Core.TextRange2 Textrange = TextFrame.TextRange;
 
-        
+            for (int index = 0; index < Textrange.Text.Count(); index++)
+            {
+                try
+                {
+                    Microsoft.Office.Core.TextRange2 text = Textrange.Find(Textrange.Text[index].ToString(), index);
+                     float sz = text.Font.Size;
+                    TextStyle style = new TextStyle();
+                    style.Size = sz;
+                    style.Character = text.Text[0];
+                    style.Color = text.Font.Fill.ForeColor.RGB;
+                    style.FontName = text.Font.Name;
+                    TextStlyeList.Add(style);
+                  
+                }
+                catch (Exception ex)
+                {
+                    Log("\tanalyze slide no " + slide.SlideNumber + " GetCharAttribute exception occur : " + ex.Message);
+
+                }
+            }
+        }
+        //test
         private void extractInfo(PPT.Shape shape)
         {
             if (shape.TextFrame.HasText == MsoTriState.msoTrue)
