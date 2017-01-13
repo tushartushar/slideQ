@@ -110,11 +110,12 @@ namespace slideQ.Model
             if (shape.HasTextFrame == MsoTriState.msoTrue)
                 extractInfo(shape);
         }
-        //test
+      
         private void GetNodeCharAttribute(Microsoft.Office.Core.TextFrame2 TextFrame)
         {
             Microsoft.Office.Core.TextRange2 Textrange = TextFrame.TextRange;
-
+            spellcheck(Textrange.Text);
+           // PPT.TextRange ppttr =(PPT.TextRange) Textrange;
             for (int index = 0; index < Textrange.Text.Count(); index++)
             {
                 try
@@ -127,7 +128,8 @@ namespace slideQ.Model
                     style.Color = text.Font.Fill.ForeColor.RGB;
                     style.FontName = text.Font.Name;
                     TextStlyeList.Add(style);
-                  
+                    TotalTextCount += 1;
+                   
                 }
                 catch (Exception ex)
                 {
@@ -136,7 +138,7 @@ namespace slideQ.Model
                 }
             }
         }
-        //test
+      
         private void extractInfo(PPT.Shape shape)
         {
             if (shape.TextFrame.HasText == MsoTriState.msoTrue)
