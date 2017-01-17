@@ -75,40 +75,101 @@ namespace slideQ.Model
         private void extractInfoFromShape(PPT.Shape shape)
         {
             if (shape.Type == MsoShapeType.msoGroup)
-                foreach (PPT.Shape myShape in shape.GroupItems)
-                    extractInfoFromShape(myShape);
-         
-            else if (shape.Type == MsoShapeType.msoSmartArt || shape.Type == MsoShapeType.msoPlaceholder)
+            {
+                GetDataFromGroupItem(shape);
+            }
+            else if (shape.Type == MsoShapeType.msoSmartArt  )
+            {
+                GetDataFromSmartArt(shape);
+            }
+
+            else if (shape.Type == MsoShapeType.msoTable)
+            {
+                GetDataFromTable(shape);
+            }
+
+            else if (shape.Type == MsoShapeType.msoPlaceholder)
+            {
+                GetDataFromPlaceHolder(shape);
+            }
+
+            if (shape.HasTextFrame == MsoTriState.msoTrue)
+            {
+                extractInfo(shape);
+            }
+        }
+
+        private void GetDataFromPlaceHolder(PPT.Shape shape)
+        {
+            try
+            {
+                GetDataFromSmartArt(shape);
+            }
+            catch
             {
                 try
                 {
-                    SmartArtNodes nodes = shape.SmartArt.AllNodes;
-                
+                    GetDataFromTable(shape);
+                }
+                catch
+                {
+                    try
+                    {
+                        GetDataFromGroupItem(shape);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private void GetDataFromGroupItem(PPT.Shape shape)
+        {
+            foreach (PPT.Shape myShape in shape.GroupItems)
+                extractInfoFromShape(myShape);
+        }
+
+        private void GetDataFromTable(PPT.Shape shape)
+        {
+
+            for (int i = 1; i <= shape.Table.Rows.Count; i++)
+            {
+                for (int j = 1; j <= shape.Table.Columns.Count; j++)
+                {
+                    if (shape.Table.Cell(i, j).Shape.HasTextFrame == MsoTriState.msoTrue)
+                        slideText.Add(shape.Table.Cell(i, j).Shape.TextFrame.TextRange);
+                }
+            }
+        }
+
+        private void GetDataFromSmartArt(PPT.Shape shape)
+        {
+            try
+            {
+                SmartArtNodes nodes = shape.SmartArt.AllNodes;
+
                 foreach (SmartArtNode node in nodes)
                 {
                     try
                     {
                         if (node.TextFrame2.HasText == MsoTriState.msoTrue)
-
                         {
                             GetNodeCharAttribute(node.TextFrame2);
                         }
-                          //  slideText.Add((PPT.TextRange)node.Shapes.TextFrame2.TextRange);
+                        //  slideText.Add((PPT.TextRange)node.Shapes.TextFrame2.TextRange);
                     }
                     catch (Exception ex)
                     {
                         Log("Exception occurred. " + ex.Message);
                     }
                 }
-                }
-                catch (Exception ex)
-                {
-                    Log("Exception occurred. " + ex.Message);
-                }
             }
-
-            if (shape.HasTextFrame == MsoTriState.msoTrue)
-                extractInfo(shape);
+            catch (Exception ex)
+            {
+                Log("Exception occurred. " + ex.Message);
+            }
         }
       
         private void GetNodeCharAttribute(Microsoft.Office.Core.TextFrame2 TextFrame)
